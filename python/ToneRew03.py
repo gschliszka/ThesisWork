@@ -4,7 +4,7 @@ import os
 import struct
 from ConnectWithArduino import connect
 
-version = "#Pyt_TonRew.2.20200528.2"
+version = "#Pyt_TonRew.3.20200528.2"
 #version_ard = ""
 
 parNam = ["Tone frequency(Hz):","Tone length(ms):","Gap length(ms):","Reward length(ms):",
@@ -21,7 +21,7 @@ class Serial_connector:
     arduino_response = ser.readline().decode(encoding='ascii').split('\r\n')
     #print(arduino_response)
     arduino_program = arduino_response[0].split('#')
-    #print(arduino_program)
+    print(arduino_program)
     version_ard = arduino_program[1]
     print(version_ard)
     if version.split('.')[1]!=version_ard.split('.')[1]:

@@ -2,11 +2,11 @@ from tkinter import *
 import os
 import time
 
-version = "#Pyt_TonRew.t0.20200918.0"
+version = "#Pyt_TonRew.0.20201024.1"
 
 parNam = ["Frequency(Hz): reward:",
           "_________punishment:",
-          "_________neutral:","Tone length(ms):","Gap length(ms):","Stimulus length(ms):",
+          "_________conditioner:","Tone length(ms):","Gap length(ms):","Stimulus length(ms):",
           "Time inter trial(s):","Diffusion factor(s):","Number of trail:"]
 initVal = [400,200,100,1000,500,250,
             10,5,2]
@@ -117,37 +117,24 @@ class Buttons:
 
 class Modifiers:
     def __init__(self,master):
-        def sel():
-            print("Method: "+str(self.mVar.get()))
-        
-        def sel2():
-            print("Stimulus: ")
-            if self.S1var==0:
-                parVal[0].spn.config(state='DISABLED')
-        
+        self.impl = 0
+
+        def stimulate():
+            self.impl = self.Svar[0].get()+self.Svar[1].get()*2+self.Svar[2].get()*4
+            print("Stimulus: " + str(self.impl))
+
         frame = Frame(master,width=400,height=200)
         frame.pack()
-
-        self.meth = LabelFrame(frame,height=60,width=200,text="Method:",font=('Times New Roman Greek',10),bg='#9CB99C')
-        self.meth.pack(side=LEFT,fill=Y)
-
-        self.mVar = IntVar()
-        self.R1 = Radiobutton(self.meth,text="training",variable=self.mVar,value=1,bg='#9CB99C',command=sel)
-        self.R1.grid(column=0,row=0,sticky="NW")
-        self.R2 = Radiobutton(self.meth,text="random",variable=self.mVar,value=2,bg='#9CB99C',command=sel)
-        self.R2.grid(column=0,row=1,sticky="NW")
 
         self.stim = LabelFrame(frame,height=60,width=200,text="Stimulus:",font=('Times New Roman Greek',10),bg='#9CB99C')
         self.stim.pack(side=LEFT,fill=Y)
 
-        self.S1var = IntVar()
-        self.S2var = IntVar()
-        self.S3var = IntVar()
-        self.C1 = Checkbutton(self.stim,text="reward",variable=self.S1var,bg='#9CB99C',command=sel2)
+        self.Svar = [IntVar(),IntVar(),IntVar()]
+        self.C1 = Checkbutton(self.stim,text="reward",variable=self.Svar[0],bg='#9CB99C',command=stimulate)
         self.C1.grid(column=0,row=0,sticky="NW")
-        self.C2 = Checkbutton(self.stim,text="punishment",variable=self.S2var,bg='#9CB99C')
+        self.C2 = Checkbutton(self.stim,text="punishment",variable=self.Svar[1],bg='#9CB99C',command=stimulate)
         self.C2.grid(column=0,row=1,sticky="NW")
-        self.C3 = Checkbutton(self.stim,text="neutral",variable=self.S3var,bg='#9CB99C')
+        self.C3 = Checkbutton(self.stim,text="conditioner",variable=self.Svar[2],bg='#9CB99C',command=stimulate)
         self.C3.grid(column=0,row=2,sticky="NW")
 
 class Version_ID:

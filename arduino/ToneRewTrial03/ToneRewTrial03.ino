@@ -1,7 +1,7 @@
 #include "global_variables.h"
 #include "order.h"
 
-String version = "#Ard_TonRew.2.20200528.3";
+String version = "#Ard_TonRew.3.20200528.3";
 /// Only Start function is useable
 
 String versionPyt = "";
