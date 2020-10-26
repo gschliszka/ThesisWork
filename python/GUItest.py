@@ -2,16 +2,7 @@ from tkinter import *
 import os
 import time
 import GlobalParameters as gp
-"""
-version = "#Pyt_TonRew.0.20201024.1"
 
-gp.parNam = ["Frequency(Hz): reward:",
-          "_________punishment:",
-          "_________conditioner:","Tone length(ms):","Gap length(ms):","Stimulus length(ms):",
-          "Time inter trial(s):","Diffusion factor(s):","Number of trail:"]
-gp.initVal = [400,200,100,1000,500,250,
-            10,5,2]
-"""
 class Table:
     def __init__(self,master):
         self.parFrame = Frame(master,bg='black',bd=5,relief="ridge",width=200,height=200)
@@ -165,3 +156,4 @@ Ard_vers = "#Ard_ToneRew.2.20200918.0"
 Version_ID(kernel.disFrame,Ard_vers[1:])
 
 window.mainloop()
+diary.close_diary()
