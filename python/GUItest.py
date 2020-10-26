@@ -1,16 +1,17 @@
 from tkinter import *
 import os
 import time
-
+import GlobalParameters as gp
+"""
 version = "#Pyt_TonRew.0.20201024.1"
 
-parNam = ["Frequency(Hz): reward:",
+gp.parNam = ["Frequency(Hz): reward:",
           "_________punishment:",
           "_________conditioner:","Tone length(ms):","Gap length(ms):","Stimulus length(ms):",
           "Time inter trial(s):","Diffusion factor(s):","Number of trail:"]
-initVal = [400,200,100,1000,500,250,
+gp.initVal = [400,200,100,1000,500,250,
             10,5,2]
-
+"""
 class Table:
     def __init__(self,master):
         self.parFrame = Frame(master,bg='black',bd=5,relief="ridge",width=200,height=200)
@@ -23,7 +24,7 @@ class Diary:
     dirname = os.path.dirname(os.path.abspath(__file__))
     current_time = time.strftime('%Y_%m_%d_%H_%M_%S',time.localtime())
     dataFile = open(dirname+'/diary/'+current_time+'.txt','w')
-    dataFile.write(version[1:]+'\n')
+    dataFile.write(gp.version[1:]+'\n')
     def write_ard_version(self,vers_ard):
         self.dataFile.write(vers_ard+'\n\n')
     def title(self,title_value):
@@ -54,9 +55,9 @@ def update_parameters(event,i):
         parVal[i].value=parVal[i].spn.get()
         writeOrder(i+10)
         writeValue(parVal[i].value)
-        print(parNam[i],parVal[i].spn.get())
-        diary.dataFile.write(parNam[i]+parVal[i].spn.get()+'\n')
-        parHist.lsb.insert(0,str(parNam[i])+' '+parVal[i].spn.get())
+        print(gp.parNam[i],parVal[i].spn.get())
+        diary.dataFile.write(gp.parNam[i]+parVal[i].spn.get()+'\n')
+        parHist.lsb.insert(0,str(gp.parNam[i])+' '+parVal[i].spn.get())
     else:
         parVal[i].spn['value'] = parVal[i].value
     if parHist.lsb.size()>30:
@@ -67,19 +68,19 @@ class Parameters:
         frame = Frame(master,bg='black',bd=0)
         frame.pack(fill=X)
 
-        self.lbl = Label(frame,text=parNam[k],font=('Times New Roman Greek',10),anchor='w',width=20,bg='#9CB99C')
+        self.lbl = Label(frame,text=gp.parNam[k],font=('Times New Roman Greek',10),anchor='w',width=20,bg='#9CB99C')
         self.lbl.grid(column=0,row=0)
 
         self.spn = Spinbox(frame,width=5,bd=2,justify='right',disabledbackground='black')
         self.spn.bind("<FocusOut>",lambda event, a=k :update_parameters(event,a))
         self.spn.bind("<Return>",lambda event, a=k :update_parameters(event,a))
         self.spn.grid(column=1,row=0)
-        self.spn['value'] = initVal[k]
+        self.spn['value'] = gp.initVal[k]
 
-        self.value = str(initVal[k])
+        self.value = str(gp.initVal[k])
 
         #writeOrder(k+10)
-        #writeValue(initVal[k])
+        #writeValue(gp.initVal[k])
 
 class History:
     def __init__(self,master):
@@ -150,7 +151,7 @@ window.title('Tone-Reward trials')
 kernel = Table(window)
 
 parVal =[]
-for i in range(len(parNam)):
+for i in range(len(gp.parNam)):
     parVal.append(Parameters(kernel.parFrame,i))
 
 parHist = History(kernel.parFrame)
@@ -159,7 +160,7 @@ Modifiers(kernel.disFrame)
 
 Buttons(kernel.disFrame)
 
-Version_ID(kernel.parFrame,version[1:])
+Version_ID(kernel.parFrame,gp.version[1:])
 Ard_vers = "#Ard_ToneRew.2.20200918.0"
 Version_ID(kernel.disFrame,Ard_vers[1:])
 
