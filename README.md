@@ -1,2 +1,2 @@
 # ThesisWork
- at KOKI In Vivo Neurophysiogy Laboratory in 2020
+ at KOKI In Vivo Neurophysiology Laboratory in 2020
