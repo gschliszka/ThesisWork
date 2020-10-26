@@ -8,11 +8,12 @@ String versionPyt = "";
 
 void setup() {
   Serial.begin(115200);
+  /*
   while(Serial.available()<1){} // <-- 
   
   if(Serial.available()>0){
     versionPyt = Serial.readStringUntil('\n');
-  }
+  }*/
   
   //Serial.print("Version: ");
   Serial.println(version);

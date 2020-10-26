@@ -1,0 +1,10 @@
+Pyt_TonRew.1.20200507.1
+Ard_TonRew.1.20200505.0
+
+TONE REWARD TRIAL:
+
+Number of trail:90
+Number of trail:9
+Number of trail:5
+Tone frequency(Hz):800
+Tone time(ms):2000
