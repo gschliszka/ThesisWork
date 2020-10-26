@@ -11,8 +11,6 @@ parNam = ["Tone frequency(Hz):","Tone length(ms):","Gap length(ms):","Reward len
           "Time inter trial(s):","Diffusion factor(s):","Number of trail:"]
 initVal = [400,1000,500,250,
             10,5,2]
-#############ARDUINOtalk = True
-
 
 class Serial_connector:
     ser = connect(115200)
@@ -53,7 +51,6 @@ def readOrder():
     return order
 
 def writeOrder(n):
-    ###############ARDUINOtalk = False
     connector.ser.write(struct.pack('<B',int(n)))
     if readOrder()!=int(n):
         print('Incorrect order-transfer!')
@@ -65,16 +62,6 @@ def writeValue(n):
     connector.ser.write(struct.pack('<H',int(n)))
     if readValue()!=int(n):
         print('Incorrect value-transfer!')
-    ################ARDUINOtalk = True
-
-#######################################
-"""
-def readArduino():
-    if connector.ser.inWaiting()>0 and ARDUINOtalk==True:
-        print(readOrder())
-        print(readValue())
-"""
-#######################################
 
 def update_parameters(event,i):
     if parVal[i].value!=parVal[i].spn.get() and parVal[i].spn.get().isnumeric():
