@@ -4,8 +4,7 @@ import os
 import struct
 from ConnectWithArduino import connect
 
-version = "#Pyt_TonRew.3.20200528.2"
-#version_ard = ""
+version = "#Pyt_TonRew.3.20201026.3"
 
 parNam = ["Tone frequency(Hz):","Tone length(ms):","Gap length(ms):","Reward length(ms):",
           "Time inter trial(s):","Diffusion factor(s):","Number of trail:"]
