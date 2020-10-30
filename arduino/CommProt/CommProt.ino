@@ -9,3 +9,32 @@ void setup() {
 
 void loop() {
 }
+
+oid readOrder(){
+  if(Serial.available()>0){
+    command = Serial.read();
+    ORDER = true;
+    Serial.write(command);
+    serDelay = millis();
+  }
+}
+
+void readValue(){
+  if(Serial.available()>1){
+    value.array[0] = Serial.read();
+    value.array[1] = Serial.read();
+    ORDER = false;
+    Serial.write(value.array[0]);
+    Serial.write(value.array[1]);
+  }
+}
+void updateParameter(){
+  parVal[command-10] = value.integer;
+  command = 0;
+  value.integer = 0;
+}
+void readOut(){
+  while(Serial.available()>0){
+        char t = Serial.read();
+      }
+}

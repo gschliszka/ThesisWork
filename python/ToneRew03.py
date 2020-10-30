@@ -14,7 +14,7 @@ initVal = [400,1000,500,250,
 class Serial_connector:
     ser = connect(115200)
     #ser.write(version.encode())
-    #time.sleep(1)
+    time.sleep(1)
     arduino_response = ser.readline().decode().split('\r\n')
     print(arduino_response)
     arduino_program = arduino_response[0].split('#')
