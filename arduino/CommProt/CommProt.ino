@@ -8,7 +8,7 @@ void setup() {
   readOut();
   Serial.print(version);
   readOut();
-  delay(3);
+  delay(1000);
 }
 
 void loop() {
