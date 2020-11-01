@@ -1,6 +1,4 @@
 import serial.tools.list_ports
-import GlobalParameters as gp
-import time
 
 def get_ports():
     ports = serial.tools.list_ports.comports()
@@ -27,18 +25,5 @@ def connect(rate):
     else:
         print('Connection Issue!')
     print('DONE')
-
-class Serial_connector():
-    ser = connect(gp.baudrate)
-    #ser.write(version.encode())
-    time.sleep(1)
-    arduino_response = ser.readline().decode().split('\r\n')
-    #print(arduino_response)
-    arduino_program = arduino_response[0].split('#')
-    #print(arduino_program)
-    version_ard = arduino_program[1]
-    print(version_ard)
-    if gp.version.split('.')[1]!=version_ard.split('.')[1]:
-        print('GENERATIONS DIFFER! Potential incompatibility')
-
+    
 #serial_connect = connect(115200)

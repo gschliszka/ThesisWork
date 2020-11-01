@@ -1,16 +1,23 @@
 #include <C:\Users\schga\OneDrive\Dokumentumok\GitHub\ThesisWork\arduino\ToneRewTrial03\global_variables.h>
 
-String version = "#Ard_CommProt.0.20201027";
+String version = "#Ard_CommProt.1.20201101";
+byte number=200;
 
 void setup() {
   Serial.begin(115200);
+  readOut();
   Serial.print(version);
+  readOut();
+  delay(3);
 }
 
 void loop() {
+  delay(1000);
+  Serial.write(number);
+  number++;
 }
 
-oid readOrder(){
+void readOrder(){
   if(Serial.available()>0){
     command = Serial.read();
     ORDER = true;
