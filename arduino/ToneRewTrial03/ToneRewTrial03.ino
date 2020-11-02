@@ -1,15 +1,13 @@
 #include "global_variables.h"
 #include "order.h"
 
-String version = "#Ard_TonRew.3.20200528.3";
+String version = "Ard_TonRew.3.20201102.3";
 /// Only Start function is useable
-
-String versionPyt = "";
 
 void setup() {
   Serial.begin(115200);
   readOut();
-  Serial.println(version);
+  Serial.print(version);
   readOut();
   delay(1000);
   pinMode(TonePin,OUTPUT);
@@ -24,7 +22,7 @@ void loop() {
   if(!ORDER) readOrder();
   if(ORDER && (millis()-serDelay)>100) readValue();
   if((command>9) && !ORDER) updateParameter();
-  if(Serial.available()>3) readOut();
+  if(Serial.available()>2) readOut();
   
   if(state=='A'){
     //Serial.println("\nNew set of trials");

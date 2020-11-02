@@ -5,11 +5,6 @@ import time
 
 connector = cp.Serial_connector()
 
-def printing():
-    while True:
-        print('+3s')
-        time.sleep(3)
-
 root = Tk()
 root.geometry('600x400+20+20')
 root.title('Communication Protocol Test')

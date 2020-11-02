@@ -11,15 +11,17 @@ parNam = ["Tone frequency(Hz):","Tone length(ms):","Gap length(ms):","Reward len
 initVal = [400,1000,500,250,
             10,5,2]
 
+
 class Serial_connector:
     ser = connect(115200)
     #ser.write(version.encode())
+    ser.reset_input_buffer()
     time.sleep(1)
     arduino_response = ser.readline().decode().split('\r\n')
     print(arduino_response)
-    arduino_program = arduino_response[0].split('#')
-    print(arduino_program)
-    version_ard = arduino_program[1]
+    #arduino_program = arduino_response[0].split('#')
+    #print(arduino_program)
+    version_ard = arduino_response[0]
     print(version_ard)
     if version.split('.')[1]!=version_ard.split('.')[1]:
         print('GENERATIONS DIFFER! Potential incompatibility')
@@ -43,7 +45,7 @@ class Diary:
         self.dataFile.write(title_value+'\n\n')
     def close_diary(self):
         self.dataFile.close()
-        time.sleep(3)
+        time.sleep(1)
 
 def readOrder():
     order = struct.unpack('<B',connector.ser.read(1))[0]

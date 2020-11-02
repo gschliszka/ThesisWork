@@ -1,0 +1,8 @@
+Pyt_TonRew.3.20201026.3
+Ard_TonRew.3.20201102.3
+
+TONE REWARD TRIAL:
+
+Tone length(ms):3000
+Tone length(ms):2000
+Tone length(ms):1000

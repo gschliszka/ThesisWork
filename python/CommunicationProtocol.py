@@ -4,6 +4,7 @@ import time
 import struct
 
 class Serial_connector():
+    # Open the port
     def __init__(self):
         self.ser = self.connect(gp.baudrate)
         time.sleep(1)
@@ -36,7 +37,8 @@ class Serial_connector():
                 splitPort = strPort.split(' ')
                 commPort = (splitPort[0])
         return commPort
-    
+
+    # Communicational functions
     def readOrder(self):
         order = struct.unpack('<B',self.ser.read(1))[0]
         return order
@@ -51,6 +53,7 @@ class Serial_connector():
         if self.readValue()!=int(n):
             print('Incorrect value-transfer!')
     
+    # Reader thread
     def inComingData(self):
         while True:
             if self.ser.inWaiting()>1:
