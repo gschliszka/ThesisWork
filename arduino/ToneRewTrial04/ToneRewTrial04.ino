@@ -1,8 +1,8 @@
 #include "global_variables.h"
-#include <SoftTimers.h>
+//#include <SoftTimers.h>
 
 String version = "#Ard_TonStim.4.20201102.0";
-SoftTimer nextStepTimer;
+
 
 void setup() {
   Serial.begin(115200);
@@ -21,26 +21,41 @@ void loop() {
   if((command>9) && !ORDER) updateParameter();
   if(Serial.available()>2) readOut();
 
-  if(state=='A'){
-    
-  }
-  else if(state=='B'){
-    doTrial();
-  }
-  else if(state=='C'){
-    if((command==2) && !ORDER){
-      command = 0;
-      value.integer = 0;
-      zTime = millis();
-      aTime = 0;
-      state = 'B';
-      aT = 0;
-      nextStepTimer.setTimeOutTime(TL);
-      nextStepTimer.reset();
+  if(state=='A'){ //START state
+    for(int i=0;i<4;i++){
+      //tone(PiezoPin,40,250);
+      digitalWrite(TonePin,HIGH);
+      delay(250);
+      digitalWrite(TonePin,LOW);
+      digitalWrite(RwPin,HIGH);
+      delay(250);
+      digitalWrite(RwPin,LOW);
     }
+    
+    state = 'B';
+    aT = 0;
+    trialCounter = 0;
+    nextStepTimer.setTimeOutTime(0);
+    nextStepTimer.reset();
+  }
+  else if(state=='B'){ //TO DO state
+    doTrial();
+    stateChanged(3,'D');
+    stateChanged(4,'C');
+  }
+  else if(state=='C'){ //Standby state
+    stateChanged(2,'A');
+  }
+  else if(state=='D'){ //PAUSE state
+    stateChanged(2,'B');
+    stateChanged(4,'C');
   }
 }
 
 void doTrial(){
-  
+  if(nextStepTimer.hasTimedOut() && trialCounter==0)        Tone();
+  if(nextStepTimer.hasTimedOut() && trialCounter==1)         gap();
+  if(nextStepTimer.hasTimedOut() && trialCounter==2)      Reward();
+  if(nextStepTimer.hasTimedOut() && trialCounter==3) interTrials();
+  if(nextStepTimer.hasTimedOut() && trialCounter==4)    newTrial();
 }

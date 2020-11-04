@@ -11,6 +11,8 @@ class Table:
         self.disFrame = Frame(master,bg='yellow',bd=5,relief="ridge",width=200,height=200)
         self.disFrame.grid(column=1,row=0,sticky="NW")
 
+        
+
 class Diary:
     dirname = os.path.dirname(os.path.abspath(__file__))
     current_time = time.strftime('%Y_%m_%d_%H_%M_%S',time.localtime())
@@ -101,18 +103,18 @@ class Buttons:
         #self.start.pack(side=LEFT)
         self.start.grid(column=0,row=0)
 
-        self.stop = Button(self.frame,text="Stop")
-        self.start.grid(column=1,row=0)
+        self.stop = Button(self.frame,text="Stop",command=self.start_trials)
+        self.start.grid(column=0,row=1)
 
         self.reStart = Button(self.frame,text="Restart")
-        self.start.grid(column=2,row=0)
+        self.start.grid(column=0,row=2)
 
 class Modifiers:
     def __init__(self,master):
         self.impl = 0
 
         def stimulate():
-            self.impl = self.Svar[0].get()+self.Svar[1].get()*2+self.Svar[2].get()*4
+            self.impl = self.Svar[0].get()+self.Svar[1].get()*2+self.Svar[2].get()*4+self.Svar[3].get()*8
             print("Stimulus: " + str(self.impl))
 
         frame = Frame(master,width=400,height=200)
@@ -121,13 +123,15 @@ class Modifiers:
         self.stim = LabelFrame(frame,height=60,width=200,text="Stimulus:",font=('Times New Roman Greek',10),bg='#9CB99C')
         self.stim.pack(side=LEFT,fill=Y)
 
-        self.Svar = [IntVar(),IntVar(),IntVar()]
+        self.Svar = [IntVar(),IntVar(),IntVar(),IntVar()]
         self.C1 = Checkbutton(self.stim,text="reward",variable=self.Svar[0],bg='#9CB99C',command=stimulate)
         self.C1.grid(column=0,row=0,sticky="NW")
-        self.C2 = Checkbutton(self.stim,text="punishment",variable=self.Svar[1],bg='#9CB99C',command=stimulate)
+        self.C2 = Checkbutton(self.stim,text="air puff",variable=self.Svar[1],bg='#9CB99C',command=stimulate)
         self.C2.grid(column=0,row=1,sticky="NW")
-        self.C3 = Checkbutton(self.stim,text="conditioner",variable=self.Svar[2],bg='#9CB99C',command=stimulate)
+        self.C3 = Checkbutton(self.stim,text="tail shock",variable=self.Svar[2],bg='#9CB99C',command=stimulate)
         self.C3.grid(column=0,row=2,sticky="NW")
+        self.C4 = Checkbutton(self.stim,text="conditioner",variable=self.Svar[3],bg='#9CB99C',command=stimulate)
+        self.C4.grid(column=0,row=4,sticky="NW")
 
 class Version_ID:
     def __init__(self,mester,id):
@@ -147,9 +151,9 @@ for i in range(len(gp.parNam)):
 
 parHist = History(kernel.parFrame)
 
-Modifiers(kernel.disFrame)
+#Modifiers(kernel.disFrame)
 
-Buttons(kernel.disFrame)
+#Buttons(kernel.disFrame)
 
 Version_ID(kernel.parFrame,gp.version[1:])
 Ard_vers = "#Ard_ToneRew.2.20200918.0"

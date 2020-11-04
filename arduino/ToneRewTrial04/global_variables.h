@@ -2,6 +2,7 @@
 	global_variable.h - Library for TonRewTrial
 	Created by Gaspar J. Schliszka
 */
+#include <SoftTimers.h>
 
 //---Pin variables------------------
 const byte  TonePin = 8; //RED
@@ -12,18 +13,10 @@ const byte PiezoPin = 9; //buzzer
 char state = 'C';
 
 //---Timer variables----------------
-unsigned long  zTime = 0;   //start time of training ~zeroTime (in ms)
-unsigned long  aTime = 0;   //actualTime in doTrail()
-          int  randT = 0;   //iT+random(-dif,dif+1)
-          int     aT = 0;   //number of actualTrial
+SoftTimer nextStepTimer;
+     int  aT = 0;   //number of actualTrial
+     byte trialCounter = 0; //along one trial
 unsigned long serDelay = 0; //delay between order and value reading
-
-//---Additional timer variabels-----
-bool  bTT = false;
-bool   bg = false;
-bool bRwT = false;
-bool  biT = false;
-bool newT = false;
 
 //---Parameters of the Trials-------
 unsigned int  TF = 100;    //0:ToneFrequency

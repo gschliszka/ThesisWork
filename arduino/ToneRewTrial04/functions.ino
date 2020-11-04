@@ -1,15 +1,10 @@
-bool Timer(unsigned long& start,int wait,bool first){
-  if(millis()-zTime>start && first){
-    start += wait;
-    return true;
-  }
-  else {
-    return false;
+void stateChanged(byte word,char whereto){
+  if((command==word) && !ORDER){
+    command = 0;
+    value.integer = 0;
+    state = whereto;
   }
 }
-/* Note:
- * In next generation: use #include <SoftTimers.h>
- */
 
 //---Functions of doTrial------------------------
 void Tone(){
@@ -17,55 +12,44 @@ void Tone(){
   //Serial.println(aT+1);
   digitalWrite(TonePin,HIGH);
   tone(PiezoPin,parVal[0],parVal[1]);
-  //Serial.println("TONE! TONE! TONE!");
-  bTT = false;
-  bg = true;
+  trialCounter++;                           //All of them into one function
+  nextStepTimer.setTimeOutTime(parVal[1]);  //
+  nextStepTimer.reset();                    //
 }
 
 void gap(){
   digitalWrite(TonePin,LOW);
   //Serial.println("------------------------");
-  bg = false;
-  bRwT = true;
+  trialCounter++;
+  nextStepTimer.setTimeOutTime(parVal[2]);
+  nextStepTimer.reset();
 }
 
 void Reward(){
   digitalWrite(RwPin,HIGH);
   //Serial.println("Reward!!!!!!!!!!!!!");
-  bRwT = false;
-  biT = true;
+  trialCounter++;
+  nextStepTimer.setTimeOutTime(parVal[3]);
+  nextStepTimer.reset();
 }
 
 void interTrials(){
   digitalWrite(RwPin,LOW);
-  randT = random(-parVal[5],parVal[5]+1)*1000;
-  aTime += randT;
+  int randT = random(-parVal[5],parVal[5]+1);
+  trialCounter++;
+  nextStepTimer.setTimeOutTime((parVal[4]+randT)*1000);
+  nextStepTimer.reset();
   //Serial.print("InterTrail time: ");
   //Serial.print((randT+iT*1000)/1000);
-  biT = false;
-  newT = true;
   //Serial.println("s\tSilence!!!");
 }
 
 void newTrial(){
   aT += 1;
-  newT = false;
-  bTT = true;
-  zTime = millis();
-  aTime = 0;
-  if(aT>=parVal[6]){
-    state = 'C';
-    //--for Arduino start comm. 
-    /*
-    command = 8;
-    value.integer = parVal[6];
-    Serial.write(command);
-    Serial.write(value.array[0]);
-    Serial.write(value.array[1]);
-    command = 0;
-    value.integer = 0;
-    */
-  }
+  if(aT>=parVal[6]) state = 'C';
+  trialCounter = 0;
+  nextStepTimer.setTimeOutTime(0);
+  nextStepTimer.reset();
 }
 
 //---Functions of communication-----

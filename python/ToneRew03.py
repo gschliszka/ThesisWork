@@ -171,3 +171,5 @@ Version_ID(kernel.disFrame,connector.version_ard)
 
 window.mainloop()
 diary.close_diary()
+print("Diary closed. Wait for closing the program!")
+time.sleep(1)

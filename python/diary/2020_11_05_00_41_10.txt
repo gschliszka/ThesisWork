@@ -1,0 +1,13 @@
+Pyt_TonRew.3.20201026.3
+#Ard_TonStim.4.20201102.0
+
+TONE REWARD TRIAL:
+
+Diffusion factor(s):2
+Number of trail:1
+Tone frequency(Hz):800
+Tone length(ms):500
+Reward length(ms):500
+Time inter trial(s):2
+Diffusion factor(s):1
+Number of trail:5
