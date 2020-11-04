@@ -13,11 +13,20 @@ initVal = [400,1000,500,250,
 
 
 class Serial_connector:
-    ser = connect(115200)
-    #ser.write(version.encode())
-    ser.reset_input_buffer()
-    time.sleep(1)
-    arduino_response = ser.readline().decode().split('\r\n')
+    try:
+        ser = connect(115200)
+        #ser.write(version.encode())
+        ser.reset_input_buffer()
+        time.sleep(1)
+        arduino_response = ser.readline().decode().split('\r\n')
+    except:
+        print("First connection failed")
+        ser.close()
+        ser = connect(115200)
+        #ser.write(version.encode())
+        ser.reset_input_buffer()
+        time.sleep(1)
+        arduino_response = ser.readline().decode().split('\r\n')
     print(arduino_response)
     #arduino_program = arduino_response[0].split('#')
     #print(arduino_program)
