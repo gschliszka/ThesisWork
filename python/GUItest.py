@@ -96,18 +96,20 @@ class Buttons:
         writeValue(0)
 
     def __init__(self,master):
-        self.frame = Frame(master)
-        self.frame.pack()
+        self.frame = Frame(master,width=200,height=200)
+        self.frame.pack(fill=X)
 
-        self.start = Button(self.frame,text="Start",command=self.start_trials)
-        #self.start.pack(side=LEFT)
-        self.start.grid(column=0,row=0)
+        self.start = Button(self.frame, width=10, height=2,text="Start",command=self.start_trials)
+        self.start.pack(side='left')
+        #self.start.grid(column=0,row=0)
 
-        self.stop = Button(self.frame,text="Stop",command=self.start_trials)
-        self.start.grid(column=0,row=1)
+        self.stop = Button(self.frame, width=10, height=2,text="Stop",command=self.start_trials)
+        self.start.pack(side='left')
+        #self.start.grid(column=0,row=1)
 
-        self.reStart = Button(self.frame,text="Restart")
-        self.start.grid(column=0,row=2)
+        self.reset = Button(self.frame, width=10, height=2,text="Reset")
+        self.start.pack(side='left')
+        #self.start.grid(column=0,row=2)
 
 class Modifiers:
     def __init__(self,master):
@@ -139,7 +141,7 @@ class Version_ID:
         self.lbl.pack(fill=X)
 
 window = Tk()
-window.geometry('640x410+20+20')
+window.geometry('640x450+20+20')
 window.minsize(200,200)
 window.title('Tone-Reward trials')
 
@@ -151,9 +153,9 @@ for i in range(len(gp.parNam)):
 
 parHist = History(kernel.parFrame)
 
-#Modifiers(kernel.disFrame)
+Modifiers(kernel.disFrame)
 
-#Buttons(kernel.disFrame)
+Buttons(kernel.disFrame)
 
 Version_ID(kernel.parFrame,gp.version[1:])
 Ard_vers = "#Ard_ToneRew.2.20200918.0"

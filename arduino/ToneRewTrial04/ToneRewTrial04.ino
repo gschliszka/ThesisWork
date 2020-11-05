@@ -17,7 +17,7 @@ void setup() {
 
 void loop() {
   if(!ORDER) readOrder();
-  if(ORDER && (millis()-serDelay)>100) readValue();
+  if(ORDER && nextReadTimer.hasTimedOut()) readValue();
   if((command>9) && !ORDER) updateParameter();
   if(Serial.available()>2) readOut();
 
@@ -40,6 +40,7 @@ void loop() {
   }
   else if(state=='B'){ //TO DO state
     doTrial();
+    stateChanged(2,'B');
     stateChanged(3,'D');
     stateChanged(4,'C');
   }

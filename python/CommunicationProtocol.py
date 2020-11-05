@@ -6,15 +6,24 @@ import struct
 class Serial_connector():
     # Open the port
     def __init__(self):
-        self.ser = self.connect(gp.baudrate)
-        time.sleep(1)
-        arduino_response = self.ser.readline().decode().split('\r\n')
+        try:
+            self.ser = self.connect(gp.baudrate)
+            self.ser.reset_input_buffer()
+            time.sleep(1)
+            arduino_response = self.ser.readline().decode().split('\r\n')
+        except:
+            print("First connection failed")
+            self.ser.close()
+            self.ser = self.connect(gp.baudrate)
+            self.ser.reset_input_buffer()
+            time.sleep(1)
+            arduino_response = self.ser.readline().decode().split('\r\n')
         #print(arduino_response)
         arduino_program = arduino_response[0].split('#')
         #print(arduino_program)
-        self.version_ard = arduino_program[1]
-        print(self.version_ard)
-        if gp.version.split('.')[1]!=self.version_ard.split('.')[1]:
+        gp.ardVers = arduino_program[1]
+        print(gp.ardVers)
+        if gp.version.split('.')[1]!=gp.ardVers.split('.')[1]:
             print('GENERATIONS DIFFER! Incompatibility is probable')
     
     def connect(self,rate):

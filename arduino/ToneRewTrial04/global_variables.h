@@ -14,9 +14,10 @@ char state = 'C';
 
 //---Timer variables----------------
 SoftTimer nextStepTimer;
+SoftTimer nextReadTimer;
      int  aT = 0;   //number of actualTrial
      byte trialCounter = 0; //along one trial
-unsigned long serDelay = 0; //delay between order and value reading
+unsigned long serDelay = 100; //delay between order and value reading
 
 //---Parameters of the Trials-------
 unsigned int  TF = 100;    //0:ToneFrequency

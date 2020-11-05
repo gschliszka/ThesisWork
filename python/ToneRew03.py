@@ -46,7 +46,12 @@ class Table:
 class Diary:
     dirname = os.path.dirname(os.path.abspath(__file__))
     current_time = time.strftime('%Y_%m_%d_%H_%M_%S',time.localtime())
-    dataFile = open(dirname+'/diary/'+current_time+'.txt','w')
+    try:
+        dataFile = open(dirname+'/diary/'+current_time+'.txt','w')
+    except OSError:
+        print('Creat diary folder')
+        os.mkdir(dirname+'/diary')
+        dataFile = open(dirname+'/diary/'+current_time+'.txt','w')
     dataFile.write(version[1:]+'\n')
     def write_ard_version(self,vers_ard):
         self.dataFile.write(vers_ard+'\n\n')

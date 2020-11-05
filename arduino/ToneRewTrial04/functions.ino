@@ -58,7 +58,8 @@ void readOrder(){
     command = Serial.read();
     ORDER = true;
     Serial.write(command);
-    serDelay = millis();
+    nextReadTimer.setTimeOutTime(serDelay);
+    nextReadTimer.reset();
   }
 }
 
