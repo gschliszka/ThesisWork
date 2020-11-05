@@ -17,7 +17,7 @@ class Application:
         self.disFrame.grid(column=1,row=0,sticky="NW")
 
         self.Version_ID(self.disFrame,gp.ardVers)
-        self.modifiers = self.Modifier(self.disFrame)
+        self.modifiers = self.Modifier(self.disFrame,connector)
         self.buttons = self.Button(self.disFrame,connector)
     
     class Parameter:
@@ -46,23 +46,26 @@ class Application:
             self.srb.config(command=self.lsb.yview)
 
     class Modifier:
-        def __init__(self,master):
+        def stimulate(self):
+            self.impl = self.Svar[0].get()+self.Svar[1].get()*2+self.Svar[2].get()*4+self.Svar[3].get()*8
+            self.connector.writeOrder(1)
+            self.connector.writeValue(self.impl)
+            print("Stimulus: " + str(self.impl))
+        def __init__(self,master,connector):
+            self.connector = connector
             self.impl = 0
-            def stimulate():
-                self.impl = self.Svar[0].get()+self.Svar[1].get()*2+self.Svar[2].get()*4+self.Svar[3].get()*8
-                print("Stimulus: " + str(self.impl))
 
             self.frame = tk.Frame(master,bg='#9CB99C',width=100,height=100)
             self.frame.pack(side='left',fill='y')
 
             self.Svar = [tk.IntVar(),tk.IntVar(),tk.IntVar(),tk.IntVar()]
-            self.C1 = tk.Checkbutton(master,variable=self.Svar[0],bg='#9CB99C',command=stimulate,text="reward")
+            self.C1 = tk.Checkbutton(master,variable=self.Svar[0],bg='#9CB99C',command=self.stimulate,text="reward")
             self.C1.grid(in_=self.frame,column=0,row=0,sticky="NW")
-            self.C2 = tk.Checkbutton(master,variable=self.Svar[1],bg='#9CB99C',command=stimulate,text="air puff")
+            self.C2 = tk.Checkbutton(master,variable=self.Svar[1],bg='#9CB99C',command=self.stimulate,text="air puff")
             self.C2.grid(in_=self.frame,column=0,row=1,sticky="NW")
-            self.C3 = tk.Checkbutton(master,variable=self.Svar[2],bg='#9CB99C',command=stimulate,text="tail shock")
+            self.C3 = tk.Checkbutton(master,variable=self.Svar[2],bg='#9CB99C',command=self.stimulate,text="tail shock")
             self.C3.grid(in_=self.frame,column=0,row=2,sticky="NW")
-            self.C4 = tk.Checkbutton(master,variable=self.Svar[3],bg='#9CB99C',command=stimulate,text="conditioner")
+            self.C4 = tk.Checkbutton(master,variable=self.Svar[3],bg='#9CB99C',command=self.stimulate,text="conditioner")
             self.C4.grid(in_=self.frame,column=0,row=4,sticky="NW")
 
     class Button:
@@ -88,8 +91,8 @@ class Application:
 
 def ToneStimulus(connector,diary):
     root = tk.Tk()
-    root.geometry('650x450+20+40')
-    root.minsize(200,200)
+    root.geometry('370x500+20+40')
+    root.minsize(370,500)
     root.title('Tone-Reward trials')
 
     diary.write_(gp.version)

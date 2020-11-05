@@ -1,8 +1,6 @@
 #include "global_variables.h"
-//#include <SoftTimers.h>
 
 String version = "#Ard_TonStim.4.20201102.0";
-
 
 void setup() {
   Serial.begin(115200);
@@ -19,6 +17,7 @@ void loop() {
   if(!ORDER) readOrder();
   if(ORDER && nextReadTimer.hasTimedOut()) readValue();
   if((command>9) && !ORDER) updateParameter();
+  if((command==1) && !ORDER) updateModifier();
   if(Serial.available()>2) readOut();
 
   if(state=='A'){ //START state
@@ -56,7 +55,7 @@ void loop() {
 void doTrial(){
   if(nextStepTimer.hasTimedOut() && trialCounter==0)        Tone();
   if(nextStepTimer.hasTimedOut() && trialCounter==1)         gap();
-  if(nextStepTimer.hasTimedOut() && trialCounter==2)      Reward();
+  if(nextStepTimer.hasTimedOut() && trialCounter==2)    Stimulus();
   if(nextStepTimer.hasTimedOut() && trialCounter==3) interTrials();
   if(nextStepTimer.hasTimedOut() && trialCounter==4)    newTrial();
 }

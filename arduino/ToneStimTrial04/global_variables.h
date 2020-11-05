@@ -1,5 +1,5 @@
 /*
-	global_variable.h - Library for TonRewTrial
+	global_variable.h - Library for TonStimTrial
 	Created by Gaspar J. Schliszka
 */
 #include <SoftTimers.h>
@@ -20,14 +20,19 @@ SoftTimer nextReadTimer;
 unsigned long serDelay = 100; //delay between order and value reading
 
 //---Parameters of the Trials-------
-unsigned int  TF = 100;    //0:ToneFrequency
-unsigned int  TL = 1000;   //1:ToneLength
-unsigned int  GL = 1000;   //2:GapLength
-unsigned int RwL = 250;    //3:RewardLength
-unsigned int  iT = 5;      //4:time interTrials (in s)
-unsigned int dif = 1;      //5:diffusion factor for random iT component
-unsigned int  nT = 3;      //6:number of Trials
-unsigned int parVal[] = {TF,TL,GL,RwL,iT,dif,nT};
+unsigned int  FR = 400;    //0:ToneFrequency for Reward
+unsigned int  FA = 100;    //1:ToneFrequency for Air puff
+unsigned int  FT = 100;    //2:ToneFrequency for Tail shock
+unsigned int  FC = 100;    //3:ToneFrequency for Conditioner
+unsigned int  TL = 1000;   //4:ToneLength
+unsigned int  GL = 1000;   //5:GapLength
+unsigned int RwL = 250;    //6:RewardLength
+unsigned int  iT = 5;      //7:time interTrials (in s)
+unsigned int dif = 1;      //8:diffusion factor for random iT component
+unsigned int  nT = 3;      //9:number of Trials
+unsigned int parVal[] = {FR,FA,FT,FC,TL,GL,RwL,iT,dif,nT};
+unsigned int impulse = 1;  //binary code for stimuli
+unsigned int stimuli[] = {nT,0,0,0};
 
 //---Union for bytes-integers------
 union ArrayToInt{
