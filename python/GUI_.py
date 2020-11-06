@@ -17,8 +17,8 @@ class Application:
         self.disFrame.grid(column=1,row=0,sticky="NW")
 
         self.Version_ID(self.disFrame,gp.ardVers)
-        self.modifiers = self.Modifier(self.disFrame,connector)
-        self.buttons = self.Button(self.disFrame,connector)
+        self.modifiers = self.Modifier(self.disFrame,connector,diary,self.parHist)
+        self.buttons = self.Button(self.disFrame,connector,diary,self.parHist)
     
     class Parameter:
         def update_parameters(self,event,j):
@@ -27,7 +27,7 @@ class Application:
                 self.connector.writeOrder(j+10)
                 self.connector.writeValue(self.value)
                 print(gp.parNam[j],self.spn.get())
-                self.diary.dataFile.write(gp.parNam[j]+self.spn.get()+'\n')
+                self.diary.write_(gp.parNam[j]+self.spn.get()+'\n')
                 self.parHist.lsb.insert(0,str(gp.parNam[j])+' '+self.spn.get())
             else:
                 self.spn['value'] = self.value
@@ -68,13 +68,26 @@ class Application:
             self.srb.config(command=self.lsb.yview)
 
     class Modifier:
+        def data_recording(self):
+            self.diary.write_('Rew: '+str(self.Svar[0].get())+', '+
+                              'AiP: '+str(self.Svar[1].get())+', '+
+                              'TaS: '+str(self.Svar[2].get())+', '+
+                              'Con: '+str(self.Svar[3].get()))
+            self.parHist.lsb.insert(0,'R: '+str(self.Svar[0].get())+', '+
+                                      'A: '+str(self.Svar[1].get())+', '+
+                                      'T: '+str(self.Svar[2].get())+', '+
+                                      'C: '+str(self.Svar[3].get()))
         def stimulate(self):
             self.impl = self.Svar[0].get()+self.Svar[1].get()*2+self.Svar[2].get()*4+self.Svar[3].get()*8
             self.connector.writeOrder(1)
-            self.connector.writeValue(self.impl)
+            self.connector.writeValue(int(self.impl))
+            self.data_recording()
             print("pyt: Stimulus: " + str(self.impl))
-        def __init__(self,master,connector):
+            print(self.impl)
+        def __init__(self,master,connector,diary,parHist):
             self.connector = connector
+            self.diary = diary
+            self.parHist = parHist
             self.impl = 0
 
             self.frame = tk.Frame(master,bg='#9CB99C',width=100,height=100)
@@ -92,11 +105,25 @@ class Application:
             self.C4.grid(in_=self.frame,column=0,row=4,sticky="NW")
 
     class Button:
+        def data_recording(self,k):
+            if k==2:
+                self.diary.write_('Trial started')
+                self.parHist.lsb.insert(0,'Start')
+            if k==3:
+                self.diary.write_('Trial stopped')
+                self.parHist.lsb.insert(0,'Stop')
+            if k==4:
+                self.diary.write_('Trial reset')
+                self.parHist.lsb.insert(0,'Reset')
         def action(self,n):
             self.connector.writeOrder(n)
             self.connector.writeValue(0)
-        def __init__(self,master,connector):
+            self.data_recording(n)
+        def __init__(self,master,connector,diary,parHist):
             self.connector = connector
+            self.diary = diary
+            self.parHist = parHist
+
             self.frame = tk.Frame(master,bg='blue',width=100,height=100)
             self.frame.pack(side='top')
 
@@ -106,6 +133,8 @@ class Application:
             self.stop.pack(in_=self.frame,side='top')
             self.reset = tk.Button(master,width=5,height=1,text="Reset",command=lambda: self.action(4))
             self.reset.pack(in_=self.frame,side='top')
+    
+    #class Display:
 
     class Version_ID:
         def __init__(self,master,id):
@@ -114,7 +143,9 @@ class Application:
 
 def tone_stimulus(connector,diary):
     root = tk.Tk()
-    root.geometry('370x500+20+40')
+    pic = tk.PhotoImage(file='icon01.png')
+    root.iconphoto(False,pic)
+    root.geometry('370x500+20+60')
     root.minsize(370,500)
     root.title('Tone-Reward trials')
 

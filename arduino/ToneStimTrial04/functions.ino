@@ -104,8 +104,8 @@ void updateModifier(int mod){
   impulse = mod;
   nT = 0;
   for(int i=0;i<4;i++){
+    stimuli[i] = 0;
     if(bitRead(impulse,i)==1){
-      stimuli[i] = 0;
       stimuli[i] = parVal[0]-aT;
       nT += stimuli[i];
     }

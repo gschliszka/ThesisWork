@@ -1,0 +1,14 @@
+Pyt_TonStim.4.20201106.1
+Ard_TonStim.4.20201102.0
+
+Number of trail:4
+TonFreq.(Hz) reward:5000
+___________air puff:900
+_________tail shock:500
+________conditioner:100
+Number of trail:3
+Number of trail:5
+Length(ms): reward:750
+Length(ms): reward:50
+Length(ms): reward:750
+__________air puff:850
