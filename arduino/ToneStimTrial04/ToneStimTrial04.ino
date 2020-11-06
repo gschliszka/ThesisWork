@@ -17,7 +17,7 @@ void loop() {
   if(!ORDER) readOrder();
   if(ORDER && nextReadTimer.hasTimedOut()) readValue();
   if((command>9) && !ORDER) updateParameter();
-  if((command==1) && !ORDER) updateModifier();
+  if((command==1) && !ORDER) updateModifier(value.integer);
   if(Serial.available()>2) readOut();
 
   if(state=='A'){ //START state
@@ -34,6 +34,8 @@ void loop() {
     state = 'B';
     aT = 0;
     trialCounter = 0;
+    stimulusChooser();
+    updateModifier(impulse);
     nextStepTimer.setTimeOutTime(0);
     nextStepTimer.reset();
   }

@@ -1,3 +1,4 @@
+//---Control functions--------------------
 void stateChanged(byte n,char whereto){
   if((command==n) && !ORDER){
     command = 0;
@@ -17,38 +18,48 @@ void stepper(unsigned int duration){
   if(trialCounter>4) trialCounter = 0;
 }
 
-//---Functions of doTrial------------------------
+void stimulusChooser(){
+  while(chosenStimulus==0){
+    byte r = random(4);
+    if(stimuli[r]>0){
+      chosenStimulus = r+1;
+      stimuli[r]--;
+    }
+  }
+}
+
+//---Functions of doTrial-----------------
 void Tone(){
-  //Serial.print("Ttrail ");
-  //Serial.println(aT+1);
   digitalWrite(TonePin,HIGH);
-  tone(PiezoPin,parVal[0],parVal[4]);
+  tone(PiezoPin,parVal[chosenStimulus],parVal[5]);
   stepper(parVal[4]);
 }
 
 void gap(){
   digitalWrite(TonePin,LOW);
-  stepper(parVal[5]);
+  stepper(parVal[6]);
 }
 
 void Stimulus(){
   digitalWrite(RwPin,HIGH);
-  stepper(parVal[6]);
+  stepper(parVal[chosenStimulus+6]);
 }
 
 void interTrials(){
   digitalWrite(RwPin,LOW);
-  int randT = random(-parVal[8],parVal[8]+1);
-  stepper((parVal[7]+randT)*1000);
+  chosenStimulus = 0;
+  int randT = random(-parVal[12],parVal[12]+1);
+  stepper((parVal[11]+randT)*1000);
 }
 
 void newTrial(){
   aT++;
   if(aT>=nT) state = 'C';
+  else stimulusChooser();
   stepper(0);
 }
 
-//---Functions of communication-----
+//---Functions of communication-----------
 void readOrder(){
   if(Serial.available()>0){
     command = Serial.read();
@@ -67,12 +78,12 @@ void readValue(){
   }
 }
 
-void updateModifier(){
-  impulse = value.integer;
+void updateModifier(int mod){
+  impulse = mod;
   nT = 0;
   for(int i=0;i<4;i++){
     if(bitRead(impulse,i)==1){
-      stimuli[i] = parVal[9];
+      stimuli[i] = parVal[0]-aT;
       nT += stimuli[i];
     }
   }

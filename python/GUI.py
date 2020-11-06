@@ -59,6 +59,7 @@ class Application:
             self.frame.pack(side='left',fill='y')
 
             self.Svar = [tk.IntVar(),tk.IntVar(),tk.IntVar(),tk.IntVar()]
+            self.Svar[0].set(1)
             self.C1 = tk.Checkbutton(master,variable=self.Svar[0],bg='#9CB99C',command=self.stimulate,text="reward")
             self.C1.grid(in_=self.frame,column=0,row=0,sticky="NW")
             self.C2 = tk.Checkbutton(master,variable=self.Svar[1],bg='#9CB99C',command=self.stimulate,text="air puff")

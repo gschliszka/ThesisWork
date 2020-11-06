@@ -20,27 +20,32 @@ SoftTimer nextReadTimer;
 unsigned long serDelay = 100; //delay between order and value reading
 
 //---Parameters of the Trials-------
-unsigned int  FR = 400;    //0:ToneFrequency for Reward
-unsigned int  FA = 100;    //1:ToneFrequency for Air puff
-unsigned int  FT = 100;    //2:ToneFrequency for Tail shock
-unsigned int  FC = 100;    //3:ToneFrequency for Conditioner
-unsigned int  TL = 1000;   //4:ToneLength
-unsigned int  GL = 1000;   //5:GapLength
-unsigned int RwL = 250;    //6:RewardLength
-unsigned int  iT = 5;      //7:time interTrials (in s)
-unsigned int dif = 1;      //8:diffusion factor for random iT component
-unsigned int  nT = 3;      //9:number of Trials
-unsigned int parVal[] = {FR,FA,FT,FC,TL,GL,RwL,iT,dif,nT};
-unsigned int impulse = 1;  //binary code for stimuli
-unsigned int stimuli[] = {nT,0,0,0};
+unsigned int  nT = 3;      //0:number of Trials
+unsigned int  FR = 800;    //1:ToneFrequency for Reward
+unsigned int  FA = 400;    //2:ToneFrequency for AirPuff
+unsigned int  FT = 200;    //3:ToneFrequency for TailShock
+unsigned int  FC = 100;    //4:ToneFrequency for Conditioner
+unsigned int  TL = 1000;   //5:ToneLength
+unsigned int  GL = 1000;   //6:GapLength
+unsigned int RwL = 250;    //7:RewardLength
+unsigned int AiL = 250;    //8:AirPuffLength
+unsigned int TaL = 250;    //9:TailShockLength
+unsigned int CoL = 250;    //10:ConditionerLength
+unsigned int  iT = 5;      //11:time interTrials (in s)
+unsigned int dif = 1;      //12:diffusion factor for random iT component
 
-//---Union for bytes-integers------
+unsigned int parVal[] = {nT,FR,FA,FT,FC,TL,GL,RwL,AiL,TaL,CoL,iT,dif};
+unsigned int impulse = 1;  //binary code for stimuli
+unsigned int stimuli[] = {nT,0,0,0}; //default stimulus: Reward
+byte chosenStimulus = 0;
+
+//---Union for bytes-integers-------
 union ArrayToInt{
   byte array[2];
   unsigned int integer;
 };
 
-//---Communicational variables-----
+//---Communicational variables------
 byte command = 0;
 ArrayToInt value;
 bool ORDER = false;

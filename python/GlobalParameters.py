@@ -4,7 +4,8 @@ ardVers = ""
 
 baudrate = 115200
 
-parNam = ["TonFreq.(Hz): reward:",
+parNam = ["Number of trail:",
+          "TonFreq.(Hz): reward:",
           "____________air puff:",
           "__________tail shock:",
           "_________conditioner:",
@@ -15,13 +16,12 @@ parNam = ["TonFreq.(Hz): reward:",
           "________tail shock:",
           "_______conditioner:",
           "Time inter trial(s):",
-          "Diffusion factor(s):",
-          "Number of trail:"]
+          "Diffusion factor(s):"]
           
-initVal = [400,300,200,100,
+initVal = [3,
+           400,300,200,100,
            1000,
-           500,
+           1000,
            250,250,250,250,
-           10,
            5,
-           2]
+           1]
