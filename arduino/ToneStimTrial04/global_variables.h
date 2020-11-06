@@ -5,9 +5,10 @@
 #include <SoftTimers.h>
 
 //---Pin variables------------------
-const byte  TonePin = 8; //RED
-const byte    RwPin = 7; //GREEN
-const byte PiezoPin = 9; //buzzer
+const byte  PiezoPin = 9; //buzzer
+const byte   TonePin = 8; //RED
+const byte StimPin[] = {7,6,5,4}; //Reward,AirPuff,TailShock,Conditioner
+                                  //G,
 
 //---Initial state------------------
 char state = 'C';
@@ -21,10 +22,10 @@ unsigned long serDelay = 100; //delay between order and value reading
 
 //---Parameters of the Trials-------
 unsigned int  nT = 3;      //0:number of Trials
-unsigned int  FR = 800;    //1:ToneFrequency for Reward
-unsigned int  FA = 400;    //2:ToneFrequency for AirPuff
+unsigned int  FR = 3200;    //1:ToneFrequency for Reward
+unsigned int  FA = 800;    //2:ToneFrequency for AirPuff
 unsigned int  FT = 200;    //3:ToneFrequency for TailShock
-unsigned int  FC = 100;    //4:ToneFrequency for Conditioner
+unsigned int  FC = 50;    //4:ToneFrequency for Conditioner
 unsigned int  TL = 1000;   //5:ToneLength
 unsigned int  GL = 1000;   //6:GapLength
 unsigned int RwL = 250;    //7:RewardLength
@@ -48,4 +49,5 @@ union ArrayToInt{
 //---Communicational variables------
 byte command = 0;
 ArrayToInt value;
+ArrayToInt toPyt;
 bool ORDER = false;

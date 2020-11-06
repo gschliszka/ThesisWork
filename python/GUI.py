@@ -50,7 +50,7 @@ class Application:
             self.impl = self.Svar[0].get()+self.Svar[1].get()*2+self.Svar[2].get()*4+self.Svar[3].get()*8
             self.connector.writeOrder(1)
             self.connector.writeValue(self.impl)
-            print("Stimulus: " + str(self.impl))
+            print("pyt: Stimulus: " + str(self.impl))
         def __init__(self,master,connector):
             self.connector = connector
             self.impl = 0

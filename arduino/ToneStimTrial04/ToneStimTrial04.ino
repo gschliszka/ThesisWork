@@ -8,8 +8,7 @@ void setup() {
   Serial.print(version);
   readOut();
   delay(1000);
-  pinMode(TonePin,OUTPUT);
-  pinMode(RwPin,OUTPUT);
+  for(int i=0;i<4;i++) pinMode(StimPin,OUTPUT);
   randomSeed(analogRead(0));
 }
 
@@ -26,16 +25,16 @@ void loop() {
       digitalWrite(TonePin,HIGH);
       delay(250);
       digitalWrite(TonePin,LOW);
-      digitalWrite(RwPin,HIGH);
+      digitalWrite(StimPin[0],HIGH);
       delay(250);
-      digitalWrite(RwPin,LOW);
+      digitalWrite(StimPin[0],LOW);
     }
     
     state = 'B';
     aT = 0;
     trialCounter = 0;
-    stimulusChooser();
     updateModifier(impulse);
+    stimulusChooser();
     nextStepTimer.setTimeOutTime(0);
     nextStepTimer.reset();
   }

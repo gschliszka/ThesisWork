@@ -53,17 +53,24 @@ class Serial_connector():
         return order
     def writeOrder(self,n):
         self.ser.write(struct.pack('<B',int(n)))
-        if self.readOrder()!=int(n):
-            print('Incorrect order-transfer!')
+        #if self.readOrder()!=int(n):
+        #    print('Incorrect order-transfer!')
     def readValue(self):
         return struct.unpack('<H',self.ser.read(2))[0]
     def writeValue(self,n):
         self.ser.write(struct.pack('<H',int(n)))
-        if self.readValue()!=int(n):
-            print('Incorrect value-transfer!')
+        #if self.readValue()!=int(n):
+        #    print('Incorrect value-transfer!')
     
     # Reader thread
     def inComingData(self):
         while True:
-            if self.ser.inWaiting()>1:
+            if self.ser.inWaiting()>2:
+                order = self.readOrder()
+                value = self.readValue()
+                print(str(order) + ': ' + str(value))
+                """
+                print()
                 print(self.readOrder())
+                print(self.readValue())
+                """
