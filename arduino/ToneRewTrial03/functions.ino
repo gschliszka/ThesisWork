@@ -7,6 +7,9 @@ bool Timer(unsigned long& start,int wait,bool first){
     return false;
   }
 }
+/* Note:
+ * In next generation: use #include <SoftTimers.h>
+ */
 
 //---Functions of doTrial------------------------
 void Tone(){
@@ -77,11 +80,13 @@ void readOrder(){
 
 void readValue(){
   if(Serial.available()>1){
-    value.array[0] = Serial.read();
-    value.array[1] = Serial.read();
+    Serial.readBytes(value.array,2);
+    //value.array[0] = Serial.read();
+    //value.array[1] = Serial.read();
     ORDER = false;
-    Serial.write(value.array[0]);
-    Serial.write(value.array[1]);
+    Serial.write(value.array,2);
+    //Serial.write(value.array[0]);
+    //Serial.write(value.array[1]);
   }
 }
 void updateParameter(){

@@ -4,25 +4,33 @@ import os
 import struct
 from ConnectWithArduino import connect
 
-version = "#Pyt_TonRew.2.20200528.2"
-#version_ard = ""
+version = "#Pyt_TonRew.3.20201026.3"
 
 parNam = ["Tone frequency(Hz):","Tone length(ms):","Gap length(ms):","Reward length(ms):",
           "Time inter trial(s):","Diffusion factor(s):","Number of trail:"]
 initVal = [400,1000,500,250,
             10,5,2]
-#############ARDUINOtalk = True
 
 
 class Serial_connector:
-    ser = connect(115200)
-    ser.write(version.encode())
-    time.sleep(1)
-    arduino_response = ser.readline().decode(encoding='ascii').split('\r\n')
-    #print(arduino_response)
-    arduino_program = arduino_response[0].split('#')
+    try:
+        ser = connect(115200)
+        #ser.write(version.encode())
+        ser.reset_input_buffer()
+        time.sleep(1)
+        arduino_response = ser.readline().decode().split('\r\n')
+    except:
+        print("First connection failed")
+        ser.close()
+        ser = connect(115200)
+        #ser.write(version.encode())
+        ser.reset_input_buffer()
+        time.sleep(1)
+        arduino_response = ser.readline().decode().split('\r\n')
+    print(arduino_response)
+    #arduino_program = arduino_response[0].split('#')
     #print(arduino_program)
-    version_ard = arduino_program[1]
+    version_ard = arduino_response[0]
     print(version_ard)
     if version.split('.')[1]!=version_ard.split('.')[1]:
         print('GENERATIONS DIFFER! Potential incompatibility')
@@ -38,7 +46,12 @@ class Table:
 class Diary:
     dirname = os.path.dirname(os.path.abspath(__file__))
     current_time = time.strftime('%Y_%m_%d_%H_%M_%S',time.localtime())
-    dataFile = open(dirname+'/diary/'+current_time+'.txt','w')
+    try:
+        dataFile = open(dirname+'/diary/'+current_time+'.txt','w')
+    except OSError:
+        print('Creat diary folder')
+        os.mkdir(dirname+'/diary')
+        dataFile = open(dirname+'/diary/'+current_time+'.txt','w')
     dataFile.write(version[1:]+'\n')
     def write_ard_version(self,vers_ard):
         self.dataFile.write(vers_ard+'\n\n')
@@ -46,14 +59,13 @@ class Diary:
         self.dataFile.write(title_value+'\n\n')
     def close_diary(self):
         self.dataFile.close()
-        time.sleep(3)
+        time.sleep(1)
 
 def readOrder():
     order = struct.unpack('<B',connector.ser.read(1))[0]
     return order
 
 def writeOrder(n):
-    ###############ARDUINOtalk = False
     connector.ser.write(struct.pack('<B',int(n)))
     if readOrder()!=int(n):
         print('Incorrect order-transfer!')
@@ -65,16 +77,6 @@ def writeValue(n):
     connector.ser.write(struct.pack('<H',int(n)))
     if readValue()!=int(n):
         print('Incorrect value-transfer!')
-    ################ARDUINOtalk = True
-
-#######################################
-"""
-def readArduino():
-    if connector.ser.inWaiting()>0 and ARDUINOtalk==True:
-        print(readOrder())
-        print(readValue())
-"""
-#######################################
 
 def update_parameters(event,i):
     if parVal[i].value!=parVal[i].spn.get() and parVal[i].spn.get().isnumeric():
@@ -174,3 +176,5 @@ Version_ID(kernel.disFrame,connector.version_ard)
 
 window.mainloop()
 diary.close_diary()
+print("Diary closed. Wait for closing the program!")
+time.sleep(1)
