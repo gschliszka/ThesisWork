@@ -22,16 +22,20 @@ unsigned long serDelay = 100; //delay between order and value reading
 
 //---Parameters of the Trials-------
 unsigned int  nT = 3;      //0:number of Trials
-unsigned int  FR = 3200;    //1:ToneFrequency for Reward
+
+unsigned int  FR = 3200;   //1:ToneFrequency for Reward
 unsigned int  FA = 800;    //2:ToneFrequency for AirPuff
 unsigned int  FT = 200;    //3:ToneFrequency for TailShock
-unsigned int  FC = 50;    //4:ToneFrequency for Conditioner
+unsigned int  FC = 50;     //4:ToneFrequency for Conditioner
+
 unsigned int  TL = 1000;   //5:ToneLength
 unsigned int  GL = 1000;   //6:GapLength
+
 unsigned int RwL = 250;    //7:RewardLength
 unsigned int AiL = 250;    //8:AirPuffLength
 unsigned int TaL = 250;    //9:TailShockLength
 unsigned int CoL = 250;    //10:ConditionerLength
+
 unsigned int  iT = 5;      //11:time interTrials (in s)
 unsigned int dif = 1;      //12:diffusion factor for random iT component
 

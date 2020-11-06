@@ -7,10 +7,10 @@ class Application:
         self.parFrame = tk.Frame(master,bg='black',bd=5,relief="ridge",width=200,height=200)
         self.parFrame.grid(column=0,row=0,sticky="NW")
 
+        self.parHist = self.History(self.parFrame)
         self.parVal =[]
         for i in range(len(gp.parNam)):
-            self.parVal.append(self.Parameter(self.parFrame,i))
-        self.parHist = self.History(self.parFrame)
+            self.parVal.append(self.Parameter(self.parFrame,connector,diary,self.parHist,i))
         self.Version_ID(self.parFrame,gp.version)
 
         self.disFrame = tk.Frame(master,bg='yellow',bd=5,relief="ridge",width=200,height=200)
@@ -21,20 +21,42 @@ class Application:
         self.buttons = self.Button(self.disFrame,connector)
     
     class Parameter:
-        def __init__(self,master,k):
+        def update_parameters(self,event,j):
+            if self.value!=self.spn.get() and self.spn.get().isnumeric():
+                self.value=self.spn.get()
+                self.connector.writeOrder(j+10)
+                self.connector.writeValue(self.value)
+                print(gp.parNam[j],self.spn.get())
+                self.diary.dataFile.write(gp.parNam[j]+self.spn.get()+'\n')
+                self.parHist.lsb.insert(0,str(gp.parNam[j])+' '+self.spn.get())
+            else:
+                self.spn['value'] = self.value
+            if self.parHist.lsb.size()>30:
+                self.parHist.lsb.delete('end')
+
+        def __init__(self,master,connector,diary,parHist,k):
+            self.connector = connector
+            self.diary = diary
+            self.parHist = parHist
+            
             self.frame = tk.Frame(master,bg='#9CB99C',bd=0)
-            self.frame.pack(fill='x')
+            self.frame.pack(side='top',fill='x')
 
             self.lbl = tk.Label(master,text=gp.parNam[k],anchor='w',width=20,font=('Times New Roman Greek',10),bg='#9CB99C')
             self.lbl.grid(in_=self.frame,column=0,row=0)
 
             self.spn = tk.Spinbox(master,width=5,bd=2,justify='right')
+            self.spn.bind("<FocusOut>",lambda event, a=k :self.update_parameters(event,a))
+            self.spn.bind("<Return>",lambda event, a=k :self.update_parameters(event,a))
             self.spn.grid(in_=self.frame,column=1,row=0)
+            self.spn['value'] = gp.initVal[k]
+
+            self.value = str(gp.initVal[k])
 
     class History:
         def __init__(self,master):
             self.lbf = tk.LabelFrame(master,height=60,text="History:",font=('Times New Roman Greek',10),bg='#9CB99C')
-            self.lbf.pack(fill='x',expand='yes')
+            self.lbf.pack(side='bottom',fill='x',expand='yes')
 
             self.srb = tk.Scrollbar(master,bg="blue",bd=2,width=14)
             self.srb.pack(in_=self.lbf,side='right',fill='y')
@@ -90,7 +112,7 @@ class Application:
             self.lbl = tk.Label(master,text=id,font=('Times New Roman Greek',8),bg='#9CB99C')
             self.lbl.pack(side='bottom',fill='x')
 
-def ToneStimulus(connector,diary):
+def tone_stimulus(connector,diary):
     root = tk.Tk()
     root.geometry('370x500+20+40')
     root.minsize(370,500)

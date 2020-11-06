@@ -1,5 +1,5 @@
 import CommunicationProtocol as cp
-import GUI as gui
+import GUI_ as gui
 import os
 
 class Diary:
@@ -16,9 +16,10 @@ class Diary:
         self.dataFile.write(text+'\n')
     def close_diary(self):
         self.dataFile.close()
+        print('diary closed')
         cp.time.sleep(1)
 
 connector = cp.Serial_connector()
 diary = Diary()
-gui.ToneStimulus(connector,diary)
+gui.tone_stimulus(connector,diary)
 diary.close_diary()

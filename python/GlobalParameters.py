@@ -5,10 +5,10 @@ ardVers = ""
 baudrate = 115200
 
 parNam = ["Number of trail:",
-          "TonFreq.(Hz): reward:",
-          "____________air puff:",
-          "__________tail shock:",
-          "_________conditioner:",
+          "TonFreq.(Hz) reward:",
+          "___________air puff:",
+          "_________tail shock:",
+          "________conditioner:",
           "Tone length(ms):",
           "Gap length(ms):",
           "Length(ms): reward:",
@@ -19,7 +19,7 @@ parNam = ["Number of trail:",
           "Diffusion factor(s):"]
           
 initVal = [3,
-           400,300,200,100,
+           3200,800,200,50,
            1000,
            1000,
            250,250,250,250,

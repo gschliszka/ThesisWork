@@ -66,7 +66,10 @@ void interTrials(){
 
 void newTrial(){
   aT++;
-  if(aT>=nT) state = 'C';
+  if(aT>=nT){
+    state = 'C';
+    writeOrderValue(9,0);
+  }
   else stimulusChooser();
   stepper(0);
 }
