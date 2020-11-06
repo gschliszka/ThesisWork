@@ -20,7 +20,7 @@ void loop() {
   if(Serial.available()>2) readOut();
 
   if(state=='A'){ //START state
-    for(int i=0;i<4;i++){
+    for(int i=0;i<4;i++){ //Not necessary
       //tone(PiezoPin,40,250);
       digitalWrite(TonePin,HIGH);
       delay(250);
@@ -29,7 +29,6 @@ void loop() {
       delay(250);
       digitalWrite(StimPin[0],LOW);
     }
-    
     state = 'B';
     aT = 0;
     trialCounter = 0;

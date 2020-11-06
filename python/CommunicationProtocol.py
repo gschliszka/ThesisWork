@@ -69,8 +69,3 @@ class Serial_connector():
                 order = self.readOrder()
                 value = self.readValue()
                 print(str(order) + ': ' + str(value))
-                """
-                print()
-                print(self.readOrder())
-                print(self.readValue())
-                """
