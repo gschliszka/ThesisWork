@@ -8,7 +8,6 @@
 const byte  PiezoPin = 9; //buzzer
 const byte   TonePin = 8; //RED
 const byte StimPin[] = {7,6,5,4}; //Reward,AirPuff,TailShock,Conditioner
-                                  //G,
 
 //---Initial state------------------
 char state = 'C';
@@ -16,8 +15,8 @@ char state = 'C';
 //---Timer variables----------------
 SoftTimer nextStepTimer;
 SoftTimer nextReadTimer;
-     int  aT = 0;   //number of actualTrial
-     byte trialCounter = 0; //along one trial
+     int  aT = 0;             //number of actualTrial
+     byte trialCounter = 0;   //counter along one trial
 unsigned long serDelay = 100; //delay between order and value reading
 
 //---Parameters of the Trials-------
