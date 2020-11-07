@@ -143,8 +143,11 @@ class Application:
 
 def tone_stimulus(connector,diary):
     root = tk.Tk()
-    pic = tk.PhotoImage(file='icon01.png')
-    root.iconphoto(False,pic)
+    try:
+        pic = tk.PhotoImage(file='icon01.png')
+        root.iconphoto(False,pic)
+    except:
+        print(' >> Missing icon file!')
     root.geometry('370x500+20+60')
     root.minsize(370,500)
     root.title('Tone-Reward trials')
