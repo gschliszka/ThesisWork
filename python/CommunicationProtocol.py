@@ -24,7 +24,7 @@ class Serial_connector():
         gp.ardVers = arduino_program[1]
         print(gp.ardVers)
         if gp.version.split('.')[1]!=gp.ardVers.split('.')[1]:
-            print('GENERATIONS DIFFER! Incompatibility is probable')
+            print(' >> GENERATIONS DIFFER! Incompatibility is probable')
     
     def connect(self,rate):
         foundPorts = serial.tools.list_ports.comports()        
