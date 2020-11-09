@@ -29,7 +29,7 @@
   - [x] the numbers of stimuli are equal
   - [ ] nT by stimuli
   
-  In the *History* part of the main window and a file in the *Diary* folder, users can easily check the changes along the session. In the *Display* modul numbers of the left trials by stimuli visible.
+  In the *History* part of the main window and a file in the *Diary* folder, users can easily check the changes along the session. In the *Display* module numbers of the left trials by stimuli visible.
   - [ ] *Display* modul
   
 ## Installing ##
@@ -38,7 +38,7 @@
   See the necessary libraries below.
   
   ![Circuit for Arduino](/arduino/ToneStim.png)
-  LEDs are modelling the real moduls:
+  LEDs are modelling the real modules:
    * RED (pin 8): debug Tone
    * GREEN (pin 7): for Reward
    * RED (pin 6): for Air Puff
