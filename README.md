@@ -29,8 +29,8 @@
   - [x] the numbers of stimuli are equal
   - [ ] nT by stimuli
   
-  In the *History* part of the main window and a file in the *Diary* folder, users can easily check the changes along the session. In the *Display* module numbers of the left trials by stimuli visible.
-  - [ ] *Display* modul
+  In the *History* part of the main window and a file in the *Diary* folder, users can easily check the changes along the session. In the *Display* module numbers of the left trials (by stimuli) are visible.
+  - [ ] *Display* module
   
 ## Installing ##
   In the first place, the system requires one Arduino UNO board and one PC with an USB A-B cable.
