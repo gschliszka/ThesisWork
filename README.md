@@ -38,6 +38,12 @@
   See the necessary libraries below.
   
   ![Circuit for Arduino](/arduino/ToneStim.png)
+  LEDs are modelling the real moduls:
+   * RED (pin 8): debug Tone
+   * GREEN (pin 7): for Reward
+   * RED (pin 6): for Air Puff
+   * BLUE (pin 5): for Tail Shock
+   * ORANGE (pin 4): for Empty (debug)
   
   #### Used libraries ####
    * Arduino: [SoftTimers.h](https://github.com/end2endzone/SoftTimers)
