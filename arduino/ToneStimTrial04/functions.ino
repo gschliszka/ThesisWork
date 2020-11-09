@@ -106,7 +106,7 @@ void updateModifier(int mod){
   for(int i=0;i<4;i++){
     stimuli[i] = 0;
     if(bitRead(impulse,i)==1){
-      stimuli[i] = parVal[0]-aT;
+      stimuli[i] = parVal[0]-aT; //Source of errors!: if aT > parVal[0], stimuli[i] < 0
       nT += stimuli[i];
     }
   }
