@@ -101,7 +101,7 @@ class Application:
             self.C2.grid(in_=self.frame,column=0,row=1,sticky="NW")
             self.C3 = tk.Checkbutton(master,variable=self.Svar[2],bg='#9CB99C',command=self.stimulate,text="tail shock")
             self.C3.grid(in_=self.frame,column=0,row=2,sticky="NW")
-            self.C4 = tk.Checkbutton(master,variable=self.Svar[3],bg='#9CB99C',command=self.stimulate,text="conditioner")
+            self.C4 = tk.Checkbutton(master,variable=self.Svar[3],bg='#9CB99C',command=self.stimulate,text="empty")
             self.C4.grid(in_=self.frame,column=0,row=4,sticky="NW")
 
     class Button:
