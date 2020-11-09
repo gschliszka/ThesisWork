@@ -34,6 +34,7 @@ class Serial_connector():
             return serial.Serial(connectPort,baudrate=rate,timeout=1)
         else:
             print('Connection Issue!')
+            time.sleep(2)
         print('DONE')
     def findArduino(self,portsFound):
         commPort = 'None'

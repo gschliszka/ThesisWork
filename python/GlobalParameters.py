@@ -4,7 +4,7 @@ ardVers = ""
 
 baudrate = 115200
 
-parNam = ["Number of trail:",
+parNam = ["Number of trails:",
           "TonFreq.(Hz) reward:",
           "___________air puff:",
           "_________tail shock:",
