@@ -34,7 +34,9 @@
 ## Installing ##
   In the first place, the system requires one Arduino UNO board and one PC with an USB A-B cable.
   To programing the board and run the Python code you will need the [Arduino IDE](https://www.arduino.cc/en/software) and [Python 3.7](https://www.python.org/) to be installed on the PC with some additional libaries.
-  See the necessary libraries below. 
+  See the necessary libraries below.
+  
+  ![Circuit for Arduino](/arduino/ToneStim.png)
   
   #### Used libraries ####
    * Arduino: [SoftTimers.h](https://github.com/end2endzone/SoftTimers)
