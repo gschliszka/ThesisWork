@@ -1,6 +1,7 @@
 #include "global_variables.h"
+#include "order.h"
 
-String version = "#Ard_TonStim.4.20201102.0";
+String version = "#Ard_TonStim.4.20201110.2";
 
 void setup() {
   Serial.begin(115200);
@@ -8,7 +9,10 @@ void setup() {
   Serial.print(version);
   readOut();
   delay(1000);
-  for(int i=0;i<4;i++) pinMode(StimPin,OUTPUT);
+  //delay(valami);
+  //delay(NOTHING);
+  //pinMode(TonePin,OUTPUT);
+  for(int i=0;i<5;i++) pinMode(StimPin[i],OUTPUT);
   randomSeed(analogRead(0));
 }
 
@@ -16,18 +20,18 @@ void loop() {
   if(!ORDER) readOrder();
   if(ORDER && nextReadTimer.hasTimedOut()) readValue();
   if((command>9) && !ORDER) updateParameter();
-  if((command==1) && !ORDER) updateModifier(value.integer);
+  if((command==MODIFIER) && !ORDER) updateModifier(value.integer);
   if(Serial.available()>2) readOut();
 
   if(state=='A'){ //START state
     for(int i=0;i<4;i++){ //Not necessary
       //tone(PiezoPin,40,250);
-      digitalWrite(TonePin,HIGH);
+      digitalWrite(StimPin[TONE_IMIT],HIGH);
       delay(250);
-      digitalWrite(TonePin,LOW);
-      digitalWrite(StimPin[0],HIGH);
+      digitalWrite(StimPin[TONE_IMIT],LOW);
+      digitalWrite(StimPin[REWARD],HIGH);
       delay(250);
-      digitalWrite(StimPin[0],LOW);
+      digitalWrite(StimPin[REWARD],LOW);
     }
     state = 'B';
     aT = 0;
@@ -39,16 +43,16 @@ void loop() {
   }
   else if(state=='B'){ //TO DO state
     doTrial();
-    stateChanged(2,'B');
-    stateChanged(3,'D');
-    stateChanged(4,'C');
+    stateChanged(START,'B');
+    stateChanged(STOP,'D');
+    stateChanged(RESET,'C');
   }
   else if(state=='C'){ //Standby state
-    stateChanged(2,'A');
+    stateChanged(START,'A');
   }
-  else if(state=='D'){ //PAUSE state
-    stateChanged(2,'B');
-    stateChanged(4,'C');
+  else if(state=='D'){ //STOP state
+    stateChanged(START,'B');
+    stateChanged(RESET,'C');
   }
 }
 

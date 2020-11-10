@@ -29,13 +29,21 @@
   - [x] the numbers of stimuli are equal
   - [ ] nT by stimuli
   
-  In the *History* part of the main window and a file in the *Diary* folder, users can easily check the changes along the session. In the *Display* modul numbers of the left trials by stimuli visible.
-  - [ ] *Display* modul
+  In the *History* part of the main window and a file in the *Diary* folder, users can easily check the changes along the session. In the *Display* module numbers of the left trials (by stimuli) are visible.
+  - [ ] *Display* module
   
 ## Installing ##
   In the first place, the system requires one Arduino UNO board and one PC with an USB A-B cable.
   To programing the board and run the Python code you will need the [Arduino IDE](https://www.arduino.cc/en/software) and [Python 3.7](https://www.python.org/) to be installed on the PC with some additional libaries.
-  See the necessary libraries below. 
+  See the necessary libraries below.
+  
+  ![Circuit for Arduino](/arduino/ToneStim.png)
+  LEDs are modelling the real modules:
+   * RED (pin 8): debug Tone
+   * GREEN (pin 7): for Reward
+   * RED (pin 6): for Air Puff
+   * BLUE (pin 5): for Tail Shock
+   * ORANGE (pin 4): for Empty (debug)
   
   #### Used libraries ####
    * Arduino: [SoftTimers.h](https://github.com/end2endzone/SoftTimers)

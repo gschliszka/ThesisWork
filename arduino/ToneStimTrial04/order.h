@@ -1,4 +1,7 @@
-enum Oder{
+#define N_ORDERS 10
+#define N_STIM 4
+
+enum CODER{
   NOTHING = 0,
 //Control:
   MODIFIER = 1,
@@ -25,4 +28,12 @@ enum Oder{
   CONDITIONER_L = 20,
   T_INTER_TRIAL = 21,
   DIFFUSION_F   = 22
+};
+
+enum STIMULUS{
+  TONE_IMIT  = 0,
+  REWARD     = 1,
+  AIR_PUFF   = 2,
+  TAIL_SHOCK = 3,
+  EMPTY      = 4
 };

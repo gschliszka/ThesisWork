@@ -6,8 +6,8 @@
 
 //---Pin variables------------------
 const byte  PiezoPin = 9; //buzzer
-const byte   TonePin = 8; //RED
-const byte StimPin[] = {7,6,5,4}; //Reward,AirPuff,TailShock,Conditioner
+//const byte   TonePin = 8; //RED
+const byte StimPin[] = {8,7,6,5,4}; //ToneImitation,Reward,AirPuff,TailShock,Conditioner
 
 //---Initial state------------------
 char state = 'C';
@@ -38,10 +38,10 @@ unsigned int EmL = 250;    //10:EmptyLength
 unsigned int  iT = 5;      //11:time interTrials (in s)
 unsigned int dif = 1;      //12:diffusion factor for random iT component
 
-unsigned int parVal[] = {nT,FR,FA,FT,FE,TL,GL,RwL,AiL,TaL,EmL,iT,dif};
-unsigned int impulse = 1;  //binary code for stimuli
-unsigned int stimuli[] = {nT,0,0,0}; //default stimulus: Reward
-byte chosenStimulus = 0;
+unsigned int parVal[]  = {nT,FR,FA,FT,FE,TL,GL,RwL,AiL,TaL,EmL,iT,dif};
+unsigned int impulse   = 1;  //binary code for stimuli
+unsigned int stimuli[] = {0,nT,0,0,0}; //default stimulus: Reward
+byte chosenStimulus    = 0;
 
 //---Union for bytes-integers-------
 union ArrayToInt{
