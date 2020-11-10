@@ -1,10 +1,10 @@
 //---Control functions--------------------
 void stateChanged(byte n,char whereto){
   if((command==n) && !ORDER){
-    command = 0;
+    command = NOTHING;
     value.integer = 0;
     state = whereto;
-    if(n==3){
+    if(n==STOP){
       trialCounter = 0;
       aT++;
     }
@@ -20,9 +20,9 @@ void stepper(unsigned int duration){
 
 void stimulusChooser(){
   while(chosenStimulus==0){
-    byte r = random(4);
+    byte r = 1+random(N_STIM);
     if(stimuli[r]>0){
-      chosenStimulus = r+1;
+      chosenStimulus = r;
       stimuli[r]--;
     }
   }
@@ -30,45 +30,45 @@ void stimulusChooser(){
 
 //---Functions of doTrial-----------------
 void Tone(){
-  digitalWrite(TonePin,HIGH);
-  tone(PiezoPin,parVal[chosenStimulus],parVal[5]);
-  writeOrderValue(5,aT+1);
-  stepper(parVal[5]);
+  digitalWrite(StimPin[TONE_IMIT],HIGH);
+  tone(PiezoPin,parVal[chosenStimulus],parVal[TONE_TIME-N_ORDERS]);
+  writeOrderValue(ACTUAL_N,aT+1);
+  stepper(parVal[TONE_TIME-N_ORDERS]);
 }
 
 void gap(){
-  digitalWrite(TonePin,LOW);
-  stepper(parVal[6]);
+  digitalWrite(StimPin[TONE_IMIT],LOW);
+  stepper(parVal[GAP-N_ORDERS]);
 }
 
 void Stimulus(){
   stepper(parVal[chosenStimulus+6]);
-  if(chosenStimulus==3){
-    digitalWrite(StimPin[2],HIGH);
+  if(chosenStimulus==TAIL_SHOCK){
+    digitalWrite(StimPin[TAIL_SHOCK],HIGH);
     delay(2);
-    digitalWrite(StimPin[2],LOW);
+    digitalWrite(StimPin[TAIL_SHOCK],LOW);
     delay(98);
-    digitalWrite(StimPin[2],HIGH);
+    digitalWrite(StimPin[TAIL_SHOCK],HIGH);
     delay(2);
-    digitalWrite(StimPin[2],LOW);
+    digitalWrite(StimPin[TAIL_SHOCK],LOW);
   }
-  else digitalWrite(StimPin[chosenStimulus-1],HIGH);
+  else digitalWrite(StimPin[chosenStimulus],HIGH);
 }
 
 void interTrials(){
-  for(int i=0;i<4;i++){
-    digitalWrite(StimPin[i],LOW);
+  for(int i=0;i<N_STIM;i++){
+    digitalWrite(StimPin[i+1],LOW);
   }
   chosenStimulus = 0;
-  int randT = random(-parVal[12],parVal[12]+1);
-  stepper((parVal[11]+randT)*1000);
+  int randT = random(-parVal[DIFFUSION_F-N_ORDERS],parVal[DIFFUSION_F-N_ORDERS]+1);
+  stepper((parVal[T_INTER_TRIAL-N_ORDERS]+randT)*1000);
 }
 
 void newTrial(){
   aT++;
   if(aT>=nT){
     state = 'C';
-    writeOrderValue(9,0);
+    writeOrderValue(END_TRS,0);
   }
   else stimulusChooser();
   stepper(0);
@@ -103,21 +103,21 @@ void writeOrderValue(byte Com, unsigned int Val){
 void updateModifier(int mod){
   impulse = mod;
   nT = 0;
-  for(int i=0;i<4;i++){
-    stimuli[i] = 0;
+  for(int i=0;i<N_STIM;i++){
+    stimuli[i+1] = 0;
     if(bitRead(impulse,i)==1){
-      stimuli[i] = parVal[0]-aT; //Source of errors!: if aT > parVal[0], stimuli[i] < 0
-      nT += stimuli[i];
+      stimuli[i+1] = parVal[N_OF_TRS-N_ORDERS]-aT; //Source of errors!: if aT > parVal[0], stimuli[i] < 0
+      nT += stimuli[i+1];
     }
   }
-  writeOrderValue(6,nT);
+  writeOrderValue(TRIAL_N,nT);
   aT = 0;
   command = 0;
   value.integer = 0;
 }
 
 void updateParameter(){
-  parVal[command-10] = value.integer;
+  parVal[command-N_ORDERS] = value.integer;
   command = 0;
   value.integer = 0;
 }
