@@ -1,10 +1,17 @@
-version = "Pyt_TonStim.4.20201106.1"
+version = "Pyt_TonStim.4.20201111.3"
 
 ardVers = ""
 
 baudrate = 115200
 
-parNam = ["Number of trails:",
+nOrders = 10
+
+nArdRes = 100
+
+parNam = ["Number of rewards:",
+          "_________air puff:",
+          "_______tail shock:",
+          "_________empty:",
           "TonFreq.(Hz) reward:",
           "___________air puff:",
           "_________tail shock:",
@@ -18,7 +25,7 @@ parNam = ["Number of trails:",
           "Time inter trial(s):",
           "Diffusion factor(s):"]
           
-initVal = [3,
+initVal = [3,0,0,0,
            3200,800,200,50,
            1000,
            1000,

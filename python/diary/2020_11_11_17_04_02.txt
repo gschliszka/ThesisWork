@@ -1,0 +1,47 @@
+Pyt_TonStim.4.20201110.3
+Ard_TonStim.4.20201110.3
+
+_________air puff:5
+
+_______tail shock:7
+
+Rew: 1, AiP: 1, TaS: 0, Con: 0
+Rew: 1, AiP: 1, TaS: 1, Con: 0
+Rew: 1, AiP: 1, TaS: 1, Con: 1
+_________empty:9
+
+Trial started
+_________empty:2
+
+Rew: 1, AiP: 1, TaS: 1, Con: 0
+Rew: 1, AiP: 1, TaS: 1, Con: 1
+_______tail shock:5
+
+_________air puff:3
+
+Number of rewards:1
+
+Trial started
+Number of rewards:5
+
+Rew: 0, AiP: 1, TaS: 1, Con: 1
+Rew: 1, AiP: 1, TaS: 1, Con: 1
+Number of rewards:3
+
+_________air puff:1
+
+_______tail shock:3
+
+_________empty:5
+
+Trial started
+Number of rewards:2
+
+_________air puff:4
+
+_______tail shock:4
+
+Trial started
+_________empty:6
+
+Trial reset

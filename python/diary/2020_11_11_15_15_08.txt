@@ -1,0 +1,12 @@
+Pyt_TonStim.4.20201110.3
+Ard_TonStim.4.20201110.3
+
+Trial started
+Number of rewards:5
+
+_________air puff:6
+
+_______tail shock:5
+
+Number of rewards:8
+

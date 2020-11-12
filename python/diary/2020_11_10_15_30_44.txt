@@ -1,0 +1,11 @@
+Pyt_TonStim.4.20201110.3
+Ard_TonStim.4.20201110.3
+
+Trial started
+Number of rewards:2
+
+Trial started
+Rew: 1, AiP: 1, TaS: 0, Con: 0
+Trial started
+Trial reset
+Trial stopped

@@ -1,0 +1,46 @@
+Pyt_TonStim.4.20201110.3
+Ard_TonStim.4.20201110.3
+
+Number of rewards:2
+
+_________air puff:3
+
+_______tail shock:4
+
+_________empty:5
+
+TonFreq.(Hz) reward:2000
+
+___________air puff:400
+
+_________tail shock:150
+
+___________empty:80
+
+Tone length(ms):2000
+
+Gap length(ms):500
+
+Length(ms): reward:200
+
+__________air puff:400
+
+________tail shock:300
+
+__________empty:300
+
+Time inter trial(s):2
+
+Time inter trial(s):3
+
+Diffusion factor(s):2
+
+Rew: 1, AiP: 1, TaS: 0, Con: 0
+Rew: 1, AiP: 1, TaS: 1, Con: 0
+Rew: 1, AiP: 1, TaS: 1, Con: 1
+Trial started
+Time inter trial(s):10
+
+Diffusion factor(s):5
+
+Trial started

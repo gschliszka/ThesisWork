@@ -54,5 +54,5 @@
   Maybe there are some plus files in the repository whitch not required. They just halp in the development. The essential files are below.
   
   #### Essential files ####
-   * arduino: the whole [ToneStimTrial04](/arduino/ToneStimeTrial04) folder (open with IDE and upload to Arduino)
+   * Arduino: the whole [ToneStimTrial04](/arduino/ToneStimeTrial04) folder (open with IDE and upload to Arduino)
    * Python: [CommunicationProtocol.py](/python/CommunicationProtocol.py), [GlobalParameters.py](/pythonGlobalParameters.py), [GUI_.py](/python/GUI_.py), [ToneStim04.py](/python/ToneStim04.py) (in the same folder)
