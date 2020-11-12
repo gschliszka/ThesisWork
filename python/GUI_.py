@@ -29,7 +29,7 @@ class Application:
                 self.connector.writeOrder(j+gp.nOrders)
                 self.connector.writeValue(self.value)
                 print(gp.parNam[j],self.spn.get())
-                self.diary.write_(gp.parNam[j]+self.spn.get()+'\n')
+                self.diary.write_(gp.parNam[j]+self.spn.get())
                 self.parHist.lsb.insert(0,str(gp.parNam[j])+' '+self.spn.get())
             else:
                 self.spn['value'] = self.value
@@ -108,13 +108,13 @@ class Application:
     class Button:
         def data_recording(self,k):
             if k==2:
-                self.diary.write_('Trial started')
+                self.diary.write_('\nTrial started')
                 self.parHist.lsb.insert(0,'Start')
             if k==3:
-                self.diary.write_('Trial stopped')
+                self.diary.write_('\nTrial stopped')
                 self.parHist.lsb.insert(0,'Stop')
             if k==4:
-                self.diary.write_('Trial reset')
+                self.diary.write_('\nTrial reset')
                 self.parHist.lsb.insert(0,'Reset')
         def action(self,n):
             self.connector.writeOrder(n)
@@ -146,7 +146,7 @@ class Application:
 
                     """#Max number of one Stimulus"""
                     if order in range(10,14):
-                        print("Bent vagyok!")
+                        #print("Bent vagyok!")
                         self.contener[order-gp.nOrders+1].max = 0
                         self.contener[order-gp.nOrders+1].max = int(value)
                         self.contener[order-gp.nOrders+1].pBar.config(maximum=self.contener[order-gp.nOrders+1].max)
