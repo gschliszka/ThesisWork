@@ -7,7 +7,7 @@
 ### Nov. 26-ig megvalósítható feladatok:
   - [x] ***Start*** utáni váltakozó jelzővillogás kivétele (***debug*** logikai változóval ki-be kapcsolgható a [global_variables.h](/arduino/ToneStimTrial04/global_variables.h) fájlban)
   - [x] **US** hossza: ha 0, akkor a default a ***Tail shock***
-  - [x] **Reset** és stimulusszám frissítés bug: nincs owerflow
+  - [x] owerflow **Reset** és stimulusszám frissítéskor bug: megszüntetve
   - [ ] **színvilág** egyszerű allíthatósága a [GlobalParameters.py](/python/GlobalParameters.py) fájlbó
   - [ ] ***Display*** modul: +1 digital input, +1 analog input értékkijelző beszúrása
   - [ ] **protocol**: gyorsabb olvasás a *PC* felől
