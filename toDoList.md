@@ -5,7 +5,7 @@
   - [x] *__p8__*-*__p9__* viszonya: a *__p9__* vezérli a berregőt a *Tone()* beépített fuggvénnyel, a *__p8__* folyamatosan világít, amíg a a berregő szól
   
 ### Nov. 26-ig megvalósítható feladatok:
-  - [x] ***Start*** utáni váltakozó jelzővillogás kivétele (debug logikai változóval ki-be kapcsolgható [global_variables.h](/arduino/ToneStimTrial04/global_variables.h) fájlban)
+  - [x] ***Start*** utáni váltakozó jelzővillogás kivétele (***debug*** logikai változóval ki-be kapcsolgható a [global_variables.h](/arduino/ToneStimTrial04/global_variables.h) fájlban)
   - [x] **US** hossza: ha 0, akkor a default a ***Tail shock***
   - [x] **Reset** debug: nincs owerflow
   - [ ] **színvilág** egyszerű allíthatósága a [GlobalParameters.py](/python/GlobalParameters.py) fájlbó
