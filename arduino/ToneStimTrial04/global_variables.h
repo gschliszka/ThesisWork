@@ -10,6 +10,7 @@ const byte StimPin[] = {8,7,6,5,4}; //ToneImitation,Reward,AirPuff,TailShock,Con
 
 //---Initial state------------------
 char state = 'C';
+bool debug = false;
 
 //---Timer variables----------------
 SoftTimer nextStepTimer;

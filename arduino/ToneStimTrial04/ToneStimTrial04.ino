@@ -22,28 +22,8 @@ void loop() {
   if(Serial.available()>2) readOut();
 
   if(state=='A'){ //START state
-    for(int i=0;i<4;i++){ //Not necessary
-      //tone(PiezoPin,40,250);
-      digitalWrite(StimPin[TONE_IMIT],HIGH);
-      delay(250);
-      digitalWrite(StimPin[TONE_IMIT],LOW);
-      digitalWrite(StimPin[REWARD],HIGH);
-      delay(250);
-      digitalWrite(StimPin[REWARD],LOW);
-    }
+    testPins();
     doStarterReduction();
-    /*
-    state = 'B';
-    for(int i=0;i<N_STIM;i++){
-      aS[i] = 0;
-      writeOrderValue(i+1,aS[i]);
-    }
-    trialCounter = 0;
-    updateModifier(impulse);
-    stimulusChooser();
-    nextStepTimer.setTimeOutTime(0);
-    nextStepTimer.reset();
-    */
   }
   else if(state=='B'){ //TO DO state
     doTrial();
@@ -59,6 +39,17 @@ void loop() {
     stateChanged(RESET,'C');
   }
 }
+
+void testPins(){
+  if(debug){
+    for(int pin=0;pin<N_STIM+1;pin++){
+      digitalWrite(StimPin[pin],HIGH);
+      delay(250);
+      digitalWrite(StimPin[pin],LOW);
+    }
+  }
+}
+
 void doStarterReduction(){
   state = 'B';
   for(int i=0;i<N_STIM;i++){

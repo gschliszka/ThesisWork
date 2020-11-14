@@ -1,0 +1,28 @@
+Pyt_TonStim.4.20201111.3
+Ard_TonStim.4.20201111.3
+
+Time inter trial(s):1
+Number of rewards:5
+
+Trial started
+
+Trial reset
+
+Trial started
+Number of rewards:4
+
+Trial started
+
+Trial reset
+
+Trial started
+
+Trial started
+
+Trial reset
+
+Trial started
+
+Trial reset
+
+Trial started

@@ -1,0 +1,15 @@
+Pyt_TonStim.4.20201111.3
+Ard_TonStim.4.20201111.3
+
+Rew: 1, AiP: 1, TaS: 0, Con: 0
+Rew: 1, AiP: 1, TaS: 1, Con: 0
+Rew: 1, AiP: 1, TaS: 1, Con: 1
+Number of rewards:2
+_________air puff:2
+_______tail shock:2
+_________empty:2
+
+Trial started
+Time inter trial(s):1
+
+Trial started

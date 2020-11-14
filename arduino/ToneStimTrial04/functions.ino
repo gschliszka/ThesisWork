@@ -8,6 +8,9 @@ void stateChanged(byte n,char whereto){
       trialCounter = 0;
       //aT++;
     }
+    if(n==RESET){
+      chosenStimulus = 0;
+    }
   }
 }
 
@@ -53,14 +56,14 @@ void gap(){
 
 void Stimulus(){
   stepper(parVal[chosenStimulus-1+N_ORDERS]);
-  if(chosenStimulus==TAIL_SHOCK){
-    digitalWrite(StimPin[TAIL_SHOCK],HIGH);
+  if(parVal[chosenStimulus-1+REWARD_L-N_ORDERS]==0){
+    digitalWrite(StimPin[chosenStimulus],HIGH);
     delay(2);
-    digitalWrite(StimPin[TAIL_SHOCK],LOW);
+    digitalWrite(StimPin[chosenStimulus],LOW);
     delay(98);
-    digitalWrite(StimPin[TAIL_SHOCK],HIGH);
+    digitalWrite(StimPin[chosenStimulus],HIGH);
     delay(2);
-    digitalWrite(StimPin[TAIL_SHOCK],LOW);
+    digitalWrite(StimPin[chosenStimulus],LOW);
   }
   else digitalWrite(StimPin[chosenStimulus],HIGH);
   aS[chosenStimulus-1]++;
