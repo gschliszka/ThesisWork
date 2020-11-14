@@ -1,0 +1,7 @@
+Pyt_TonStim.4.20201111.3
+Ard_TonStim.4.20201111.3
+
+Rew: 1, AiP: 1, TaS: 0, Con: 0
+Time inter trial(s):1
+
+Trial started

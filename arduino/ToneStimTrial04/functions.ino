@@ -134,6 +134,7 @@ void updateModifier(unsigned int mod){
     if(bitRead(impulse,i)==1){
       if(parVal[i]-aS[i]>=0) stimuli[i+1] = parVal[i]-aS[i];
       else stimuli[i+1] = 0;
+      if(i==chosenStimulus-1) stimuli[i+1]--;
       writeOrderValue(i+N_ORDERS,parVal[i]);  //OK -
     }
     else writeOrderValue(i+N_ORDERS,0);
