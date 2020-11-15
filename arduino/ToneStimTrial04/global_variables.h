@@ -7,6 +7,8 @@
 //---Pin variables------------------
 const byte  PiezoPin = 9; //buzzer
 const byte StimPin[] = {8,7,6,5,4}; //ToneImitation,Reward,AirPuff,TailShock,Conditioner
+const byte analogIn = A5;
+const byte dgitalIn = 12;
 
 //---Initial state------------------
 char state = 'C';

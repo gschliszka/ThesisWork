@@ -31,7 +31,7 @@ void loop() {
     stateChanged(STOP,'D');
     stateChanged(RESET,'C');
   }
-  else if(state=='C'){ //Standby state
+  else if(state=='C'){ //Idle state
     stateChanged(START,'A');
   }
   else if(state=='D'){ //STOP state

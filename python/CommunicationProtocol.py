@@ -79,4 +79,4 @@ class Serial_connector():
                     print('Arduino: '+str(self.order)+": "+str(self.value))
                 else:
                     print(str(order) + ': ' + str(value))
-                time.sleep(0.1)
+                #time.sleep(0.01)

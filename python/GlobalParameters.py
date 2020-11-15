@@ -1,9 +1,17 @@
+"""Serial:"""
 version = "Pyt_TonStim.4.20201111.3"
-
 ardVers = ""
-
 baudrate = 115200
 
+"""GUI colours:"""
+background = 'black'
+borders = 'yellow'
+indicators = '#ff0000'
+inputs = '#9c0303'
+inlabelback = '#424242'
+texts = '#00ff08'
+
+"""Parameters:"""
 nOrders = 10
 
 nArdRes = 100

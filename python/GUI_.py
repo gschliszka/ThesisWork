@@ -5,22 +5,23 @@ import _thread
 
 class Application:
     def __init__(self,master,connector,diary):
-        self.parFrame = tk.Frame(master,bg='black',bd=5,relief="ridge",width=200,height=200)
+        self.parFrame = tk.Frame(master,bg=gp.borders,bd=5,relief="ridge",width=200,height=200)
         self.parFrame.grid(column=0,row=0,sticky="NW")
 
+        self.Version_ID(self.parFrame,gp.version)
         self.parHist = self.History(self.parFrame)
         self.parVal =[]
         for i in range(len(gp.parNam)):
             self.parVal.append(self.Parameter(self.parFrame,connector,diary,self.parHist,i))
-        self.Version_ID(self.parFrame,gp.version)
-
-        self.disFrame = tk.Frame(master,bg='yellow',bd=5,relief="ridge",width=200,height=200)
+        
+        self.disFrame = tk.Frame(master,bg=gp.borders,bd=5,relief="ridge",width=200,height=200)
         self.disFrame.grid(column=1,row=0,sticky="NW")
 
         self.Version_ID(self.disFrame,gp.ardVers)
         self.modifiers = self.Modifier(self.disFrame,connector,diary,self.parHist)
+        self.inputs = self.Input(self.disFrame)
         self.buttons = self.Button(self.disFrame,connector,diary,self.parHist)
-        self.display = self.Display(self.disFrame,connector)
+        self.display = self.Display(self.disFrame,connector,self.inputs)
     
     class Parameter:
         def update_parameters(self,event,j):
@@ -41,13 +42,13 @@ class Application:
             self.diary = diary
             self.parHist = parHist
             
-            self.frame = tk.Frame(master,bg='#9CB99C',bd=0)
+            self.frame = tk.Frame(master,bg=gp.background,bd=0)
             self.frame.pack(side='top',fill='x')
 
-            self.lbl = tk.Label(master,text=gp.parNam[k],anchor='w',width=20,font=('Times New Roman Greek',10),bg='#9CB99C')
+            self.lbl = tk.Label(master,text=gp.parNam[k],anchor='w',width=20,font=('Times New Roman Greek',10),bg=gp.background,fg=gp.texts)
             self.lbl.grid(in_=self.frame,column=0,row=0)
 
-            self.spn = tk.Spinbox(master,width=5,bd=2,justify='right')
+            self.spn = tk.Spinbox(master,width=5,bd=2,justify='right',bg=gp.inlabelback,fg=gp.texts)
             self.spn.bind("<FocusOut>",lambda event, a=k :self.update_parameters(event,a))
             self.spn.bind("<Return>",lambda event, a=k :self.update_parameters(event,a))
             self.spn.grid(in_=self.frame,column=1,row=0)
@@ -57,13 +58,13 @@ class Application:
 
     class History:
         def __init__(self,master):
-            self.lbf = tk.LabelFrame(master,height=60,text="History:",font=('Times New Roman Greek',10),bg='#9CB99C')
+            self.lbf = tk.LabelFrame(master,height=60,text="History:",font=('Times New Roman Greek',10),bg=gp.background,fg=gp.texts)
             self.lbf.pack(side='bottom',fill='x',expand='yes')
 
-            self.srb = tk.Scrollbar(master,bg="blue",bd=2,width=14)
+            self.srb = tk.Scrollbar(master,bg=gp.background,troughcolor=gp.background,bd=2,width=14)
             self.srb.pack(in_=self.lbf,side='right',fill='y')
 
-            self.lsb = tk.Listbox(master,yscrollcommand=self.srb.set,bg='#9CB99C',width=30)
+            self.lsb = tk.Listbox(master,yscrollcommand=self.srb.set,bg=gp.inlabelback,fg=gp.texts,width=30)
             self.lsb.insert('end',"Ready")
             self.lsb.pack(in_=self.lbf,side='left',fill='both')
 
@@ -91,19 +92,39 @@ class Application:
             self.parHist = parHist
             self.impl = 0
 
-            self.frame = tk.Frame(master,bg='#9CB99C',width=100,height=100)
+            self.frame = tk.LabelFrame(master,bg=gp.background,width=100,height=100)
             self.frame.pack(side='left',fill='y')
 
             self.Svar = [tk.IntVar(),tk.IntVar(),tk.IntVar(),tk.IntVar()]
             self.Svar[0].set(1)
-            self.C1 = tk.Checkbutton(master,variable=self.Svar[0],bg='#9CB99C',command=self.stimulate,text="reward")
+            self.C1 = tk.Checkbutton(master,variable=self.Svar[0],bg=gp.background,fg=gp.texts,command=self.stimulate,text="reward")
             self.C1.grid(in_=self.frame,column=0,row=0,sticky="NW")
-            self.C2 = tk.Checkbutton(master,variable=self.Svar[1],bg='#9CB99C',command=self.stimulate,text="air puff")
+            self.C2 = tk.Checkbutton(master,variable=self.Svar[1],bg=gp.background,fg=gp.texts,command=self.stimulate,text="air puff")
             self.C2.grid(in_=self.frame,column=0,row=1,sticky="NW")
-            self.C3 = tk.Checkbutton(master,variable=self.Svar[2],bg='#9CB99C',command=self.stimulate,text="tail shock")
+            self.C3 = tk.Checkbutton(master,variable=self.Svar[2],bg=gp.background,fg=gp.texts,command=self.stimulate,text="tail shock")
             self.C3.grid(in_=self.frame,column=0,row=2,sticky="NW")
-            self.C4 = tk.Checkbutton(master,variable=self.Svar[3],bg='#9CB99C',command=self.stimulate,text="empty")
+            self.C4 = tk.Checkbutton(master,variable=self.Svar[3],bg=gp.background,fg=gp.texts,command=self.stimulate,text="empty")
             self.C4.grid(in_=self.frame,column=0,row=4,sticky="NW")
+
+    class Input():
+        def __init__(self,master):
+            self.framA = tk.Frame(master,bg=gp.background)
+            self.framA.pack(side='bottom',fill='both',expand=1)
+
+            self.lblA = tk.Label(master,bg=gp.inputs,fg=gp.texts,text='An. input:')
+            self.lblA.pack(in_=self.framA,side='left')
+
+            self.numA = tk.Label(master,bg=gp.inputs,fg=gp.texts,text='0')
+            self.numA.pack(in_=self.framA,side='left')
+
+            self.framD = tk.Frame(master,bg=gp.background)
+            self.framD.pack(side='bottom',fill='both',expand=1)
+
+            self.lblD = tk.Label(master,bg=gp.inputs,fg=gp.texts,text='Dig. input:')
+            self.lblD.pack(in_=self.framD,side='left')
+
+            self.numD = tk.Label(master,bg=gp.inputs,fg=gp.texts,text='0')
+            self.numD.pack(in_=self.framD,side='left')
 
     class Button:
         def data_recording(self,k):
@@ -125,7 +146,7 @@ class Application:
             self.diary = diary
             self.parHist = parHist
 
-            self.frame = tk.Frame(master,bg='#9CB99C',width=100,height=100)
+            self.frame = tk.Frame(master,bg=gp.background,width=100,height=100)
             self.frame.pack(side='top',fill='both',expand=1)
 
             self.reset = tk.Button(master,width=5,height=1,text="Reset",command=lambda: self.action(4))
@@ -169,20 +190,31 @@ class Application:
                         self.contener[order-gp.nArdRes+1].strNUM.set(str(self.contener[order-gp.nArdRes+1].var.get()))
                         self.contener[0].strNUM.set(str(self.contener[0].var.get()))
                     
+                    """Time-out"""
                     if order==24:
                         self.time.config(text="Time-out: "+str(int(value/1000))+'s')
-                        self.fin.config(text="",bg='#9CB99C')
+                        self.fin.config(text="",bg=gp.background)
                     
+                    """End of the trials"""
                     if order==9:
-                        self.fin.config(text="Finished",bg='yellow')
+                        self.fin.config(text="Finished",bg=gp.indicators)
                         self.time.config(text="Time-out: ---")
-
+                    
+                    """Analog input"""
+                    if order==255:
+                        self.inputs.numA.config(text=str(value))
+                    
+                    """Digital input"""
+                    if order==254:
+                        self.inputs.numD.config(text=str(value))
+                    
                     order = 0
                     value = 0
 
-        def __init__(self,master,connector):
+        def __init__(self,master,connector,inputs):
             self.connector = connector
-            self.frame = tk.LabelFrame(master,text="Display:",font=('Times New Roman Greek',10),bg='#9CB99C',width=100,height=100)
+            self.inputs = inputs
+            self.frame = tk.LabelFrame(master,text="Display:",font=('Times New Roman Greek',10),bg=gp.background,fg=gp.texts,width=100,height=100)
             self.frame.pack(side='bottom',fill='y')
 
             self.total = self.Progressbar(self.frame,'Total:',300)
@@ -192,10 +224,10 @@ class Application:
             self.empty = self.Progressbar(self.frame,'Empty:',100,False)
             self.contener = [self.total,self.reward,self.airpuff,self.tailShock,self.empty]
 
-            self.time = tk.Label(master,text="Time-out: ---",font=('Times New Roman Greek',10),bg='#9CB99C')
+            self.time = tk.Label(master,text="Time-out: ---",font=('Times New Roman Greek',10),bg=gp.background,fg=gp.texts)
             self.time.pack(in_=self.frame,side='left')
 
-            self.fin = tk.Label(master,text="",font=('Times New Roman Greek',10),bg='#9CB99C')
+            self.fin = tk.Label(master,text="",font=('Times New Roman Greek',10),bg=gp.background,fg=gp.background)
             self.fin.pack(in_=self.frame,side='right')
     
         class Progressbar():
@@ -209,19 +241,19 @@ class Application:
                 self.strMAX = tk.StringVar()
                 self.strMAX.set('/ '+str(self.max))
 
-                self.frame = tk.Frame(master,bg='#9CB99C')
+                self.frame = tk.Frame(master,bg=gp.background)
                 self.frame.pack(side='top',fill='x')
 
-                self.core = tk.Frame(master,bg='#9CB99C')
+                self.core = tk.Frame(master,bg=gp.background)
                 if MAIN:
-                    self.lbl = tk.Label(master,text=NAME,font=('Times New Roman Greek',10),bg='#9CB99C')
+                    self.lbl = tk.Label(master,text=NAME,font=('Times New Roman Greek',10),bg=gp.background,fg=gp.texts)
                 else:
-                    self.lbl = tk.Label(master,text=NAME,font=('Times New Roman Greek',10),bg='#9CB99C',width=15,anchor='e')
+                    self.lbl = tk.Label(master,text=NAME,font=('Times New Roman Greek',10),bg=gp.background,fg=gp.texts,width=15,anchor='e')
                 self.lbl.pack(in_=self.core,side='left')
 
-                self.lNUM = tk.Label(master,font=('Times New Roman Greek',10),bg='#9CB99C',textvariable=self.strMAX)
+                self.lNUM = tk.Label(master,font=('Times New Roman Greek',10),bg=gp.background,fg=gp.texts,textvariable=self.strMAX)
                 self.lNUM.pack(in_=self.core,side='right')
-                self.lMAX = tk.Label(master,font=('Times New Roman Greek',10),bg='#9CB99C',textvariable=self.strNUM)
+                self.lMAX = tk.Label(master,font=('Times New Roman Greek',10),bg=gp.background,fg=gp.texts,textvariable=self.strNUM)
                 self.lMAX.pack(in_=self.core,side='right')
 
                 self.pBar = ttk.Progressbar(master,orient='horizontal',length=LENGTH,mode='determinate',variable=self.var,maximum=self.max)
@@ -234,7 +266,7 @@ class Application:
 
     class Version_ID:
         def __init__(self,master,id):
-            self.lbl = tk.Label(master,text=id,font=('Times New Roman Greek',8),bg='#9CB99C')
+            self.lbl = tk.Label(master,text=id,font=('Times New Roman Greek',8),bg=gp.background,fg=gp.texts)
             self.lbl.pack(side='bottom',fill='x')
 
 def tone_stimulus(connector,diary):
