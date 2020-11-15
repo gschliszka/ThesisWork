@@ -6,10 +6,11 @@ void stateChanged(byte n,char whereto){
     state = whereto;
     if(n==STOP){
       trialCounter = 0;
-      //aT++;
+      writeOrderValue(STOP,0);
     }
     if(n==RESET){
       chosenStimulus = 0;
+      writeOrderValue(RESET,0);
     }
   }
 }
@@ -68,6 +69,8 @@ void Stimulus(){
   else digitalWrite(StimPin[chosenStimulus],HIGH);
   aS[chosenStimulus-1]++;
   writeOrderValue(chosenStimulus-1+A_N_Rews,aS[chosenStimulus-1]); //OK
+  writeOrderValue(DIGITAL_IN,digitalRead(digitalIn));
+  writeOrderValue(ANALOG_IN,analogRead(analogIn));
 }
 
 void interTrials(){

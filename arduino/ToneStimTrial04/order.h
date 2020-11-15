@@ -35,7 +35,10 @@ enum PYT_DECODER{
   CONDITIONER_L = 23,
   
   T_INTER_TRIAL = 24,
-  DIFFUSION_F   = 25
+  DIFFUSION_F   = 25,
+//Inputs:
+  DIGITAL_IN = 254,
+  ANALOG_IN  = 255
 };
 
 enum STIMULUS{

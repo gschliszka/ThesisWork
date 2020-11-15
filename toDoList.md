@@ -11,10 +11,10 @@
   - [x] **színvilág** egyszerű allíthatósága a [GlobalParameters.py](/python/GlobalParameters.py) fájlbó
   - [x] **protocol**: gyorsabb olvasás a *PC* felől
   - [x] ***Display*** modul: +1 digital input, +1 analog input értékkijelző beszúrása
+  - [x] kezdetleges **inputok** üzemképesek
 
   
 ### Nagyobb feladatok - várhatóan nov. 26. után megvalósíthatóak:
-  - [ ] **inputok** üzemképesek
   - [ ] ***gap***: ha negatív, az **US** ennyivel a **CS** befejezése előtt indul
   - [ ] **paraméter** értékbevitel: funkcionális le-föl gombok
   - [ ] a teljes **panel** átszerkesztése

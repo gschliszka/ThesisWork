@@ -12,6 +12,8 @@ void setup(){
 
   for(int i=0;i<5;i++) pinMode(StimPin[i],OUTPUT);
   randomSeed(analogRead(0));
+  pinMode(analogIn,INPUT);
+  pinMode(digitalIn,INPUT);
 }
 
 void loop() {

@@ -193,20 +193,30 @@ class Application:
                     """Time-out"""
                     if order==24:
                         self.time.config(text="Time-out: "+str(int(value/1000))+'s')
-                        self.fin.config(text="",bg=gp.background)
+                        self.fin.config(text="Running",bg=gp.background,fg=gp.texts)
                     
                     """End of the trials"""
                     if order==9:
-                        self.fin.config(text="Finished",bg=gp.indicators)
+                        self.fin.config(text="Finished",bg=gp.indicators,fg=gp.background)
                         self.time.config(text="Time-out: ---")
-                    
-                    """Analog input"""
-                    if order==255:
-                        self.inputs.numA.config(text=str(value))
+                                  
+                    """Stop"""
+                    if order==3:
+                        self.time.config(text="Time-out: --")
+                        self.fin.config(text="Stopped",bg=gp.background,fg=gp.texts)
+
+                    """Reset"""
+                    if order==4:
+                        self.time.config(text="Time-out: --")
+                        self.fin.config(text="Reset",bg=gp.background,fg=gp.texts)
                     
                     """Digital input"""
                     if order==254:
                         self.inputs.numD.config(text=str(value))
+
+                    """Analog input"""
+                    if order==255:
+                        self.inputs.numA.config(text=str(value))
                     
                     order = 0
                     value = 0
@@ -289,3 +299,4 @@ def tone_stimulus(connector,diary):
     root.after(1000,_thread.start_new_thread,app.display.changed,())
 
     root.mainloop()
+    #connector.ser.close()

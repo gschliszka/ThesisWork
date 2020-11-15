@@ -22,4 +22,6 @@ class Diary:
 connector = cp.Serial_connector()
 diary = Diary()
 gui.tone_stimulus(connector,diary)
+#cp.time.sleep(1)
+#connector.ser.close()
 diary.close_diary()
