@@ -12,6 +12,7 @@
   - [x] **protocol**: gyorsabb olvasás a *PC* felől
   - [x] ***Display*** modul: +1 digital input, +1 analog input értékkijelző beszúrása
   - [x] kezdetleges **inputok** üzemképesek
+  - [x] ***Display***: 4 különböző stimulus
 
   
 ### Nagyobb feladatok - várhatóan nov. 26. után megvalósíthatóak:

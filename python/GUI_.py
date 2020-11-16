@@ -230,7 +230,7 @@ class Application:
             self.total = self.Progressbar(self.frame,'Total:',300)
             self.reward = self.Progressbar(self.frame,'Reward:',100,False)
             self.airpuff = self.Progressbar(self.frame,'Air puff:',100,False)
-            self.tailShock = self.Progressbar(self.frame,'Reward:',100,False)
+            self.tailShock = self.Progressbar(self.frame,'Tail shock:',100,False)
             self.empty = self.Progressbar(self.frame,'Empty:',100,False)
             self.contener = [self.total,self.reward,self.airpuff,self.tailShock,self.empty]
 
