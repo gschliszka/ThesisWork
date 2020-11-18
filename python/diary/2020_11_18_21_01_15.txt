@@ -1,0 +1,32 @@
+Pyt_TonStim.4.20201111.3
+Ard_TonStim.4.20201111.3
+
+Number of air puffs:3
+Number of tail shocks:3
+Number of emptys:3
+TonFreq.(Hz) empty:100
+Time inter trials(s):1
+Rew: 1, AiP: 1, TaS: 0, Con: 0
+Rew: 1, AiP: 1, TaS: 1, Con: 0
+Rew: 1, AiP: 1, TaS: 1, Con: 1
+Rew: 1, AiP: 0, TaS: 1, Con: 1
+Rew: 1, AiP: 0, TaS: 0, Con: 1
+Rew: 1, AiP: 1, TaS: 0, Con: 1
+Rew: 1, AiP: 1, TaS: 1, Con: 1
+
+Trial started
+
+Trial started
+Rew: 1, AiP: 1, TaS: 0, Con: 1
+
+Trial started
+
+Trial reset
+
+Trial stopped
+
+Trial started
+
+Trial stopped
+
+Trial started

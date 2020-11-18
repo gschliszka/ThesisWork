@@ -1,5 +1,26 @@
 //---Control functions--------------------
-void stateChanged(byte n,char whereto){
+void doStarterReduction(){
+  state = 'B';
+  for(int i=0;i<N_STIM;i++){
+    aS[i] = 0;
+    writeOrderValue(i+A_N_Rews,aS[i]); //OK
+  }
+  updateModifier(impulse); // OK - in state 'A'
+  stimulusChooser();
+  trialCounter = 0;
+  nextStepTimer.setTimeOutTime(0);
+  nextStepTimer.reset();
+}
+
+void doTrial(){
+  if(nextStepTimer.hasTimedOut() && trialCounter==0)        Tone();
+  if(nextStepTimer.hasTimedOut() && trialCounter==1)         gap();
+  if(nextStepTimer.hasTimedOut() && trialCounter==2)    Stimulus();
+  if(nextStepTimer.hasTimedOut() && trialCounter==3) interTrials();
+  if(nextStepTimer.hasTimedOut() && trialCounter==4)    newTrial();
+}
+
+void stateChanger(byte n,char whereto){
   if((command==n) && !ORDER){
     command = NOTHING;
     value.integer = 0;
@@ -126,6 +147,16 @@ void writeOrderValue(byte Com, unsigned int Val){
 void readOut(){
   while(Serial.available()>0){
     char t = Serial.read();
+  }
+}
+
+void testPins(){
+  if(debug){
+    for(int pin=0;pin<N_STIM+1;pin++){
+      digitalWrite(StimPin[pin],HIGH);
+      delay(250);
+      digitalWrite(StimPin[pin],LOW);
+    }
   }
 }
 
