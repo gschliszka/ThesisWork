@@ -3,7 +3,7 @@ import GlobalParameters as gp
 import time
 import struct
 
-class Serial_connector():
+class Serial_connector:
     # Open the port
     def __init__(self):
         try:
