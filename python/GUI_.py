@@ -106,7 +106,7 @@ class Application:
             self.C4 = tk.Checkbutton(master,variable=self.Svar[3],bg=gp.background,fg=gp.texts,command=self.stimulate,text="empty")
             self.C4.grid(in_=self.frame,column=0,row=4,sticky="NW")
 
-    class Input():
+    class Input:
         def __init__(self,master):
             self.framA = tk.Frame(master,bg=gp.background)
             self.framA.pack(side='bottom',fill='both',expand=1)
@@ -240,7 +240,7 @@ class Application:
             self.fin = tk.Label(master,text="",font=('Times New Roman Greek',10),bg=gp.background,fg=gp.background)
             self.fin.pack(in_=self.frame,side='right')
     
-        class Progressbar():
+        class Progressbar:
             def __init__(self,master,NAME,LENGTH,MAIN=True):
                 self.max = 0
                 self.var = tk.IntVar()
