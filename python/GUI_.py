@@ -80,7 +80,7 @@ class Application:
                                       'A: '+str(self.Svar[1].get())+', '+
                                       'T: '+str(self.Svar[2].get())+', '+
                                       'C: '+str(self.Svar[3].get()))
-        def stimulate(self):
+        def modify(self):
             self.impl = self.Svar[0].get()+self.Svar[1].get()*2+self.Svar[2].get()*4+self.Svar[3].get()*8
             self.connector.writeOrder(1)
             self.connector.writeValue(int(self.impl))
@@ -97,13 +97,13 @@ class Application:
 
             self.Svar = [tk.IntVar(),tk.IntVar(),tk.IntVar(),tk.IntVar()]
             self.Svar[0].set(1)
-            self.C1 = tk.Checkbutton(master,variable=self.Svar[0],bg=gp.background,fg=gp.texts,command=self.stimulate,text="reward")
+            self.C1 = tk.Checkbutton(master,variable=self.Svar[0],bg=gp.background,fg=gp.texts,command=self.modify,text="reward")
             self.C1.grid(in_=self.frame,column=0,row=0,sticky="NW")
-            self.C2 = tk.Checkbutton(master,variable=self.Svar[1],bg=gp.background,fg=gp.texts,command=self.stimulate,text="air puff")
+            self.C2 = tk.Checkbutton(master,variable=self.Svar[1],bg=gp.background,fg=gp.texts,command=self.modify,text="air puff")
             self.C2.grid(in_=self.frame,column=0,row=1,sticky="NW")
-            self.C3 = tk.Checkbutton(master,variable=self.Svar[2],bg=gp.background,fg=gp.texts,command=self.stimulate,text="tail shock")
+            self.C3 = tk.Checkbutton(master,variable=self.Svar[2],bg=gp.background,fg=gp.texts,command=self.modify,text="tail shock")
             self.C3.grid(in_=self.frame,column=0,row=2,sticky="NW")
-            self.C4 = tk.Checkbutton(master,variable=self.Svar[3],bg=gp.background,fg=gp.texts,command=self.stimulate,text="empty")
+            self.C4 = tk.Checkbutton(master,variable=self.Svar[3],bg=gp.background,fg=gp.texts,command=self.modify,text="empty")
             self.C4.grid(in_=self.frame,column=0,row=4,sticky="NW")
 
     class Input:
