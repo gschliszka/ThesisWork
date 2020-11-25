@@ -1,33 +1,36 @@
 import tkinter as tk
+from tkinter import ttk
 import GlobalParameters as gp
 import _thread
 
 class Application:
     def __init__(self,master,connector,diary):
-        self.parFrame = tk.Frame(master,bg='black',bd=5,relief="ridge",width=200,height=200)
+        self.parFrame = tk.Frame(master,bg=gp.borders,bd=5,relief="ridge",width=200,height=200)
         self.parFrame.grid(column=0,row=0,sticky="NW")
 
+        self.Version_ID(self.parFrame,gp.version)
         self.parHist = self.History(self.parFrame)
         self.parVal =[]
         for i in range(len(gp.parNam)):
             self.parVal.append(self.Parameter(self.parFrame,connector,diary,self.parHist,i))
-        self.Version_ID(self.parFrame,gp.version)
-
-        self.disFrame = tk.Frame(master,bg='yellow',bd=5,relief="ridge",width=200,height=200)
+        
+        self.disFrame = tk.Frame(master,bg=gp.borders,bd=5,relief="ridge",width=200,height=200)
         self.disFrame.grid(column=1,row=0,sticky="NW")
 
         self.Version_ID(self.disFrame,gp.ardVers)
         self.modifiers = self.Modifier(self.disFrame,connector,diary,self.parHist)
+        self.inputs = self.Input(self.disFrame)
         self.buttons = self.Button(self.disFrame,connector,diary,self.parHist)
+        self.display = self.Display(self.disFrame,connector,self.inputs)
     
     class Parameter:
         def update_parameters(self,event,j):
             if self.value!=self.spn.get() and self.spn.get().isnumeric():
                 self.value=self.spn.get()
-                self.connector.writeOrder(j+10)
+                self.connector.writeOrder(j+gp.nOrders)
                 self.connector.writeValue(self.value)
                 print(gp.parNam[j],self.spn.get())
-                self.diary.write_(gp.parNam[j]+self.spn.get()+'\n')
+                self.diary.write_(gp.parNam[j]+self.spn.get())
                 self.parHist.lsb.insert(0,str(gp.parNam[j])+' '+self.spn.get())
             else:
                 self.spn['value'] = self.value
@@ -39,13 +42,13 @@ class Application:
             self.diary = diary
             self.parHist = parHist
             
-            self.frame = tk.Frame(master,bg='#9CB99C',bd=0)
+            self.frame = tk.Frame(master,bg=gp.background,bd=0)
             self.frame.pack(side='top',fill='x')
 
-            self.lbl = tk.Label(master,text=gp.parNam[k],anchor='w',width=20,font=('Times New Roman Greek',10),bg='#9CB99C')
+            self.lbl = tk.Label(master,text=gp.parNam[k],anchor='w',width=20,font=('Times New Roman Greek',10),bg=gp.background,fg=gp.texts)
             self.lbl.grid(in_=self.frame,column=0,row=0)
 
-            self.spn = tk.Spinbox(master,width=5,bd=2,justify='right')
+            self.spn = tk.Spinbox(master,width=5,bd=2,justify='right',bg=gp.inlabelback,fg=gp.texts)
             self.spn.bind("<FocusOut>",lambda event, a=k :self.update_parameters(event,a))
             self.spn.bind("<Return>",lambda event, a=k :self.update_parameters(event,a))
             self.spn.grid(in_=self.frame,column=1,row=0)
@@ -55,13 +58,13 @@ class Application:
 
     class History:
         def __init__(self,master):
-            self.lbf = tk.LabelFrame(master,height=60,text="History:",font=('Times New Roman Greek',10),bg='#9CB99C')
+            self.lbf = tk.LabelFrame(master,height=60,text="History:",font=('Times New Roman Greek',10),bg=gp.background,fg=gp.texts)
             self.lbf.pack(side='bottom',fill='x',expand='yes')
 
-            self.srb = tk.Scrollbar(master,bg="blue",bd=2,width=14)
+            self.srb = tk.Scrollbar(master,bg=gp.background,troughcolor=gp.background,bd=2,width=14)
             self.srb.pack(in_=self.lbf,side='right',fill='y')
 
-            self.lsb = tk.Listbox(master,yscrollcommand=self.srb.set,bg='#9CB99C',width=30)
+            self.lsb = tk.Listbox(master,yscrollcommand=self.srb.set,bg=gp.inlabelback,fg=gp.texts,width=30)
             self.lsb.insert('end',"Ready")
             self.lsb.pack(in_=self.lbf,side='left',fill='both')
 
@@ -77,43 +80,62 @@ class Application:
                                       'A: '+str(self.Svar[1].get())+', '+
                                       'T: '+str(self.Svar[2].get())+', '+
                                       'C: '+str(self.Svar[3].get()))
-        def stimulate(self):
+        def modify(self):
             self.impl = self.Svar[0].get()+self.Svar[1].get()*2+self.Svar[2].get()*4+self.Svar[3].get()*8
             self.connector.writeOrder(1)
             self.connector.writeValue(int(self.impl))
             self.data_recording()
-            print("pyt: Stimulus: " + str(self.impl))
-            print(self.impl)
+            print("Pyton: modifier " + str(self.impl))
         def __init__(self,master,connector,diary,parHist):
             self.connector = connector
             self.diary = diary
             self.parHist = parHist
             self.impl = 0
 
-            self.frame = tk.Frame(master,bg='#9CB99C',width=100,height=100)
+            self.frame = tk.LabelFrame(master,bg=gp.background,width=100,height=100)
             self.frame.pack(side='left',fill='y')
 
             self.Svar = [tk.IntVar(),tk.IntVar(),tk.IntVar(),tk.IntVar()]
             self.Svar[0].set(1)
-            self.C1 = tk.Checkbutton(master,variable=self.Svar[0],bg='#9CB99C',command=self.stimulate,text="reward")
+            self.C1 = tk.Checkbutton(master,variable=self.Svar[0],bg=gp.background,fg=gp.texts,command=self.modify,text="reward")
             self.C1.grid(in_=self.frame,column=0,row=0,sticky="NW")
-            self.C2 = tk.Checkbutton(master,variable=self.Svar[1],bg='#9CB99C',command=self.stimulate,text="air puff")
+            self.C2 = tk.Checkbutton(master,variable=self.Svar[1],bg=gp.background,fg=gp.texts,command=self.modify,text="air puff")
             self.C2.grid(in_=self.frame,column=0,row=1,sticky="NW")
-            self.C3 = tk.Checkbutton(master,variable=self.Svar[2],bg='#9CB99C',command=self.stimulate,text="tail shock")
+            self.C3 = tk.Checkbutton(master,variable=self.Svar[2],bg=gp.background,fg=gp.texts,command=self.modify,text="tail shock")
             self.C3.grid(in_=self.frame,column=0,row=2,sticky="NW")
-            self.C4 = tk.Checkbutton(master,variable=self.Svar[3],bg='#9CB99C',command=self.stimulate,text="empty")
+            self.C4 = tk.Checkbutton(master,variable=self.Svar[3],bg=gp.background,fg=gp.texts,command=self.modify,text="empty")
             self.C4.grid(in_=self.frame,column=0,row=4,sticky="NW")
+
+    class Input:
+        def __init__(self,master):
+            self.framA = tk.Frame(master,bg=gp.background)
+            self.framA.pack(side='bottom',fill='both',expand=1)
+
+            self.lblA = tk.Label(master,bg=gp.inputs,fg=gp.texts,text='An. input:')
+            self.lblA.pack(in_=self.framA,side='left')
+
+            self.numA = tk.Label(master,bg=gp.inputs,fg=gp.texts,text='0')
+            self.numA.pack(in_=self.framA,side='left')
+
+            self.framD = tk.Frame(master,bg=gp.background)
+            self.framD.pack(side='bottom',fill='both',expand=1)
+
+            self.lblD = tk.Label(master,bg=gp.inputs,fg=gp.texts,text='Dig. input:')
+            self.lblD.pack(in_=self.framD,side='left')
+
+            self.numD = tk.Label(master,bg=gp.inputs,fg=gp.texts,text='0')
+            self.numD.pack(in_=self.framD,side='left')
 
     class Button:
         def data_recording(self,k):
             if k==2:
-                self.diary.write_('Trial started')
+                self.diary.write_('\nTrial started')
                 self.parHist.lsb.insert(0,'Start')
             if k==3:
-                self.diary.write_('Trial stopped')
+                self.diary.write_('\nTrial stopped')
                 self.parHist.lsb.insert(0,'Stop')
             if k==4:
-                self.diary.write_('Trial reset')
+                self.diary.write_('\nTrial reset')
                 self.parHist.lsb.insert(0,'Reset')
         def action(self,n):
             self.connector.writeOrder(n)
@@ -124,21 +146,137 @@ class Application:
             self.diary = diary
             self.parHist = parHist
 
-            self.frame = tk.Frame(master,bg='blue',width=100,height=100)
-            self.frame.pack(side='top')
+            self.frame = tk.Frame(master,bg=gp.background,width=100,height=100)
+            self.frame.pack(side='top',fill='both',expand=1)
+
+            self.reset = tk.Button(master,width=5,height=1,text="Reset",command=lambda: self.action(4))
+            self.reset.pack(in_=self.frame,side='right')
+
+            self.stop  = tk.Button(master,width=5,height=1,text="Stop",command=lambda: self.action(3))
+            self.stop.pack(in_=self.frame,side='right')
 
             self.start = tk.Button(master,width=5,height=1,text="Start",command=lambda: self.action(2))
-            self.start.pack(in_=self.frame,side='top')
-            self.stop  = tk.Button(master,width=5,height=1,text="Stop",command=lambda: self.action(3))
-            self.stop.pack(in_=self.frame,side='top')
-            self.reset = tk.Button(master,width=5,height=1,text="Reset",command=lambda: self.action(4))
-            self.reset.pack(in_=self.frame,side='top')
+            self.start.pack(in_=self.frame,side='right')
     
-    #class Display:
+    class Display:
+        def changed(self):
+            while True:
+                if len(self.connector.order)>0 and len(self.connector.value)>0:
+                    order = self.connector.order.pop(0)
+                    value = self.connector.value.pop(0)
+
+                    """#Max number of one Stimulus"""
+                    if order in range(10,14):
+                        #print("Bent vagyok!")
+                        self.contener[order-gp.nOrders+1].max = 0
+                        self.contener[order-gp.nOrders+1].max = int(value)
+                        self.contener[order-gp.nOrders+1].pBar.config(maximum=self.contener[order-gp.nOrders+1].max)
+                        self.contener[0].max = 0
+                        for i in range(1,len(self.contener)):
+                            self.contener[0].max = self.contener[0].max+self.contener[i].max
+                        self.contener[0].pBar.config(maximum=self.contener[0].max)
+                        self.contener[order-gp.nOrders+1].strMAX.set('/ '+str(self.contener[order-gp.nOrders+1].max))
+                        self.contener[0].strMAX.set('/ '+str(self.contener[0].max))
+                        print("P.Readed: "+str(self.contener[order-gp.nOrders+1].var.get())+"/"+str(self.contener[order-gp.nOrders+1].max))
+
+                    """#Number of already did Stimulus"""
+                    if order in range(100,104):
+                        self.contener[order-gp.nArdRes+1].var.set(int(value))
+                        self.contener[0].var.set(0)
+                        summation = 0
+                        for i in range(1,len(self.contener)):
+                            summation = self.contener[i].var.get()+summation
+                        self.contener[0].var.set(summation)
+                        self.contener[order-gp.nArdRes+1].strNUM.set(str(self.contener[order-gp.nArdRes+1].var.get()))
+                        self.contener[0].strNUM.set(str(self.contener[0].var.get()))
+                    
+                    """Time-out"""
+                    if order==24:
+                        self.time.config(text="Time-out: "+str(int(value/1000))+'s')
+                        self.fin.config(text="Running",bg=gp.background,fg=gp.texts)
+                    
+                    """End of the trials"""
+                    if order==9:
+                        self.fin.config(text="Finished",bg=gp.indicators,fg=gp.background)
+                        self.time.config(text="Time-out: ---")
+                                  
+                    """Stop"""
+                    if order==3:
+                        self.time.config(text="Time-out: --")
+                        self.fin.config(text="Stopped",bg=gp.background,fg=gp.texts)
+
+                    """Reset"""
+                    if order==4:
+                        self.time.config(text="Time-out: --")
+                        self.fin.config(text="Reset",bg=gp.background,fg=gp.texts)
+                    
+                    """Digital input"""
+                    if order==254:
+                        self.inputs.numD.config(text=str(value))
+
+                    """Analog input"""
+                    if order==255:
+                        self.inputs.numA.config(text=str(value))
+                    
+                    order = 0
+                    value = 0
+
+        def __init__(self,master,connector,inputs):
+            self.connector = connector
+            self.inputs = inputs
+            self.frame = tk.LabelFrame(master,text="Display:",font=('Times New Roman Greek',10),bg=gp.background,fg=gp.texts,width=100,height=100)
+            self.frame.pack(side='bottom',fill='y')
+
+            self.total = self.Progressbar(self.frame,'Total:',300)
+            self.reward = self.Progressbar(self.frame,'Reward:',100,False)
+            self.airpuff = self.Progressbar(self.frame,'Air puff:',100,False)
+            self.tailShock = self.Progressbar(self.frame,'Tail shock:',100,False)
+            self.empty = self.Progressbar(self.frame,'Empty:',100,False)
+            self.contener = [self.total,self.reward,self.airpuff,self.tailShock,self.empty]
+
+            self.time = tk.Label(master,text="Time-out: ---",font=('Times New Roman Greek',10),bg=gp.background,fg=gp.texts)
+            self.time.pack(in_=self.frame,side='left')
+
+            self.fin = tk.Label(master,text="",font=('Times New Roman Greek',10),bg=gp.background,fg=gp.background)
+            self.fin.pack(in_=self.frame,side='right')
+    
+        class Progressbar:
+            def __init__(self,master,NAME,LENGTH,MAIN=True):
+                self.max = 0
+                self.var = tk.IntVar()
+                self.var.set(0)
+
+                self.strNUM = tk.StringVar()
+                self.strNUM.set(str(self.var.get()))
+                self.strMAX = tk.StringVar()
+                self.strMAX.set('/ '+str(self.max))
+
+                self.frame = tk.Frame(master,bg=gp.background)
+                self.frame.pack(side='top',fill='x')
+
+                self.core = tk.Frame(master,bg=gp.background)
+                if MAIN:
+                    self.lbl = tk.Label(master,text=NAME,font=('Times New Roman Greek',10),bg=gp.background,fg=gp.texts)
+                else:
+                    self.lbl = tk.Label(master,text=NAME,font=('Times New Roman Greek',10),bg=gp.background,fg=gp.texts,width=15,anchor='e')
+                self.lbl.pack(in_=self.core,side='left')
+
+                self.lNUM = tk.Label(master,font=('Times New Roman Greek',10),bg=gp.background,fg=gp.texts,textvariable=self.strMAX)
+                self.lNUM.pack(in_=self.core,side='right')
+                self.lMAX = tk.Label(master,font=('Times New Roman Greek',10),bg=gp.background,fg=gp.texts,textvariable=self.strNUM)
+                self.lMAX.pack(in_=self.core,side='right')
+
+                self.pBar = ttk.Progressbar(master,orient='horizontal',length=LENGTH,mode='determinate',variable=self.var,maximum=self.max)
+                if MAIN:
+                    self.core.pack(in_=self.frame,side='top',fill='x',padx=5)
+                    self.pBar.pack(in_=self.frame,side='bottom',padx=5)
+                else:
+                    self.core.pack(in_=self.frame,side='left',padx=5)
+                    self.pBar.pack(in_=self.core,side='left',padx=5)
 
     class Version_ID:
         def __init__(self,master,id):
-            self.lbl = tk.Label(master,text=id,font=('Times New Roman Greek',8),bg='#9CB99C')
+            self.lbl = tk.Label(master,text=id,font=('Times New Roman Greek',8),bg=gp.background,fg=gp.texts)
             self.lbl.pack(side='bottom',fill='x')
 
 def tone_stimulus(connector,diary):
@@ -148,14 +286,17 @@ def tone_stimulus(connector,diary):
         root.iconphoto(False,pic)
     except:
         print(' >> Missing icon file!')
-    root.geometry('370x500+20+60')
-    root.minsize(370,500)
+    root.geometry('670x565+200+60')
+    root.minsize(370,565)
     root.title('Tone-Reward trials')
 
     diary.write_(gp.version)
     diary.write_(gp.ardVers)
     diary.write_("")
-    Application(root,connector,diary)
+    app = Application(root,connector,diary)
 
     root.after(0,_thread.start_new_thread,connector.inComingData,())
+    root.after(1000,_thread.start_new_thread,app.display.changed,())
+
     root.mainloop()
+    #connector.ser.close()

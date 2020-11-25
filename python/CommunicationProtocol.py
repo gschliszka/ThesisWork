@@ -3,7 +3,7 @@ import GlobalParameters as gp
 import time
 import struct
 
-class Serial_connector():
+class Serial_connector:
     # Open the port
     def __init__(self):
         try:
@@ -25,6 +25,8 @@ class Serial_connector():
         print(gp.ardVers)
         if gp.version.split('.')[1]!=gp.ardVers.split('.')[1]:
             print(' >> GENERATIONS DIFFER! Incompatibility is probable')
+        self.order = []
+        self.value = []
     
     def connect(self,rate):
         foundPorts = serial.tools.list_ports.comports()        
@@ -69,4 +71,12 @@ class Serial_connector():
             if self.ser.inWaiting()>2:
                 order = self.readOrder()
                 value = self.readValue()
-                print(str(order) + ': ' + str(value))
+                if(order==8):
+                    #self.order = self.readOrder() ### self.order.append(self.readOrder())
+                    #self.value = self.readValue()
+                    self.order.append(self.readOrder())
+                    self.value.append(self.readValue())
+                    print('Arduino: '+str(self.order)+": "+str(self.value))
+                else:
+                    print(str(order) + ': ' + str(value))
+                #time.sleep(0.01)

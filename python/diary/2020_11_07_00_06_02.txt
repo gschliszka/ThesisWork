@@ -1,8 +1,0 @@
-Pyt_TonStim.4.20201106.1
-Ard_TonStim.4.20201102.0
-
-Rew: 1, AiP: 0, TaS: 0, Con: 1
-Rew: 0, AiP: 0, TaS: 0, Con: 1
-Trial started
-Trial started
-Trial started
